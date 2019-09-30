@@ -2,8 +2,8 @@
  * MyTriangle
  * @constructor
  * @param scene - Reference to MyScene object
- * @param x - Scale of rectangle in X
- * @param y - Scale of rectangle in Y
+ * @param x - Scale of triangle in X
+ * @param y - Scale of triangle in Y
  */
 class MyTriangle extends CGFobject {
 	constructor(scene, id, x1, x2, x3, y1, y2, y3) {
