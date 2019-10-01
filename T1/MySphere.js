@@ -31,9 +31,11 @@ class MySphere extends CGFobject {
         for (i = 0; i <= this.stacks; i++) {
             for (j = 0; j <= this.slices; j++) {
                 this.vertices.push(this.radius * Math.cos(this.theta * i) * Math.cos(this.fi * j), this.radius * Math.cos(this.theta * i) * Math.sin(this.fi * j), this.radius * Math.sin(this.theta * i));
-                this.vertices.push(Math.cos(this.theta * i) * Math.cos(this.fi * j), Math.cos(this.theta * i) * Math.sin(this.fi * j), Math.sin(this.theta * i));
+                this.normals.push(Math.cos(this.theta * i) * Math.cos(this.fi * j), Math.cos(this.theta * i) * Math.sin(this.fi * j), Math.sin(this.theta * i));
             }
         }
+
+        //To see how to add the indexes
 		
 		/*
 		Texture coords (s,t)
