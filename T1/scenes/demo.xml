@@ -52,7 +52,7 @@
             <triangle x1="1" x2="3" x3="2" y1="4" y2="4" y3="6" />
         </primitive>
         <primitive id="demoCylinder">
-            <cylinder baseRadius="2" topRadius="2" height="5" slices="10" stacks="10" />
+            <cylinder baseRadius="2" topRadius="1" height="5" slices="10" stacks="10" />
         </primitive>
     </primitives>
 

@@ -30,8 +30,7 @@ class MyCylinder extends CGFobject {
         var j;
         for (i = 0; i <= this.stacks; i++) {
             for (j = 0; j <= this.slices; j++) {
-                //this.vertices.push(Math.sin(j * ((2 * Math.PI) / this.slices)), Math.cos(j*((Math.PI) / this.slices)), (this.height * i) / this.stacks);
-                this.vertices.push(this.baseRadius * Math.cos(j * ((2 * Math.PI) / this.slices)), this.baseRadius * Math.sin(j*((2 * Math.PI) / this.slices)), (this.height * i) / this.stacks);
+                this.vertices.push((((i * (this.topRadius - this.baseRadius) / this.stacks)) + this.baseRadius) * Math.cos(j * ((2 * Math.PI) / this.slices)), (((i * (this.topRadius - this.baseRadius) / this.stacks)) + this.baseRadius) * Math.sin(j*((2 * Math.PI) / this.slices)), (this.height * i) / this.stacks);
             }
         }
 
@@ -47,7 +46,7 @@ class MyCylinder extends CGFobject {
 
         for (i = 0; i <= this.stacks; i++) {
             for (j = 0; j <= this.slices; j++) {
-                this.normals.push(Math.cos(j * ((2 * Math.PI) / this.slices)), Math.sin(j * ((2 * Math.PI) / this.slices)), 0);
+                this.normals.push(Math.cos(j * ((2 * Math.PI) / this.slices)), Math.sin(j * ((2 * Math.PI) / this.slices)), Math.atan((this.baseRadius - this.topRadius) / this.height));
             }
         }
 		
