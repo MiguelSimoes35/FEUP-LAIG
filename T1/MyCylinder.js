@@ -31,29 +31,23 @@ class MyCylinder extends CGFobject {
         for (i = 0; i <= this.stacks; i++) {
             for (j = 0; j <= this.slices; j++) {
                 //this.vertices.push(Math.sin(j * ((2 * Math.PI) / this.slices)), Math.cos(j*((Math.PI) / this.slices)), (this.height * i) / this.stacks);
-                this.vertices.push(Math.cos(j * ((2 * Math.PI) / this.slices)), Math.sin(j*((2 * Math.PI) / this.slices)), (this.height * i) / this.stacks);
+                this.vertices.push(this.baseRadius * Math.cos(j * ((2 * Math.PI) / this.slices)), this.baseRadius * Math.sin(j*((2 * Math.PI) / this.slices)), (this.height * i) / this.stacks);
             }
         }
 
-        var k;
-        for (k = 0; k < this.slices * this.stacks; k++) {
-            if (k % 2 == 0) {
-                this.indices.push(k, k + 1, k + this.slices);
-                this.indices.push(k, k + this.slices, k + this.slices - 1, );
-                //this.indices.push(k, k + 2, k + 1);
-            }
-            else {
-                this.indices.push(k, k + this.slices, k + this.slices - 1, );
-                this.indices.push(k, k + 1, k + this.slices, );
-                //this.indices.push(k, k + 1, k + 2);
+        for (i = 0; i < this.stacks; i++) {
+            for (j = 0; j < this.slices; j++) {
+                this.indices.push((this.stacks + 1) * (i + 1) + j, (this.stacks + 1) * i + j, (this.stacks + 1) * i + j + 1);
+                this.indices.push((this.stacks + 1) * (i + 1) + j, (this.stacks + 1) * i + j + 1, (this.stacks + 1) * (i + 1) + j + 1);
+
+                this.indices.push((this.stacks + 1) * (i + 1) + j, (this.stacks + 1) * i + j + 1, (this.stacks + 1) * i + j);
+                this.indices.push((this.stacks + 1) * (i + 1) + j, (this.stacks + 1) * (i + 1) + j + 1, (this.stacks + 1) * i + j + 1);
             }
         }
 
-        var a;
-        var b;
-        for (a = 0; a <= this.stacks; a++) {
-            for (b = 0; b <= this.slices; b++) {
-                this.normals.push(Math.cos(b * ((2 * Math.PI) / this.slices)), Math.sin(b * ((2 * Math.PI) / this.slices)), (this.height * a) / this.stacks);
+        for (i = 0; i <= this.stacks; i++) {
+            for (j = 0; j <= this.slices; j++) {
+                this.normals.push(Math.cos(j * ((2 * Math.PI) / this.slices)), Math.sin(j * ((2 * Math.PI) / this.slices)), 0);
             }
         }
 		
