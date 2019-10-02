@@ -476,12 +476,25 @@ class MySceneGraph {
 
                         transfMatrix = mat4.translate(transfMatrix, transfMatrix, coordinates);
                         break;
-                    case 'scale':                        
-                        this.onXMLMinorError("To do: Parse scale transformations.");
+                    case 'scale':
+                        var coordinates = this.parseCoordinates3D(grandChildren[j], "scale transformation for ID " + transformationID);
+                        if (!Array.isArray(coordinates))
+                            return coordinates;
+    
+                        transfMatrix = mat4.scale(transfMatrix, transfMatrix, coordinates);                        
                         break;
                     case 'rotate':
-                        // angle
-                        this.onXMLMinorError("To do: Parse rotate transformations.");
+                        var axis = this.reader.getString(grandChildren[j], 'axis');
+                        var angle = this.reader.getFloat(grandChildren[j], 'angle');
+                        if (axis == 'x') {
+                            transfMatrix = mat4.rotateX(transfMatrix, transfMatrix, angle * (Math.PI / 180));
+                        }
+                        else if (axis == 'y') {
+                            transfMatrix = mat4.rotateY(transfMatrix, transfMatrix, angle * (Math.PI / 180));
+                        }
+                        else if (axis == 'z') {
+                            transfMatrix = mat4.rotateZ(transfMatrix, transfMatrix, angle * (Math.PI / 180));
+                        }
                         break;
                 }
             }
