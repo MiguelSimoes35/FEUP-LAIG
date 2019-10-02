@@ -3,8 +3,8 @@
  * @constructor
  * @param scene - Reference to MyScene object
  * @param radius - Radius of the sphere
- * @param slices - number of divisions in rotation
- * @param stacks - number of divisions in height
+ * @param slices - number of divisions in 
+ * @param stacks - number of divisions in 
  */
 class MySphere extends CGFobject {
 	constructor(scene, id, radius, slices, stacks) {
@@ -35,7 +35,13 @@ class MySphere extends CGFobject {
             }
         }
 
-        //To see how to add the indexes
+		//To see how to add the indexes
+		for (i = 0; i <= this.stacks; i++) {
+			for (j = 0; j <= this.slices; j++) {
+				this.indices.push(i * this.slices + j, (i + 1) * (this.slices) + j, (i + 1) * this.slices + j + 1);
+				this.indices.push(i * this.slices + j, (i + 1) * (this.slices) + j + 1, i * this.slices + j + 1);
+			}
+		}
 		
 		/*
 		Texture coords (s,t)

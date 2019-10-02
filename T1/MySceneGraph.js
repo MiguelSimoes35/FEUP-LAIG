@@ -619,6 +619,25 @@ class MySceneGraph {
 
                 this.primitives[primitiveId] = cy;
             }
+            //Sphere
+            else if(primitiveType == 'sphere'){
+                // radius
+                var radius = this.reader.getFloat(grandChildren[0], 'radius');
+                if (!(radius != null && !isNaN(x1)))
+                    return "unable to parse baseRadius of the primitive coordinates for ID = " + primitiveId;
+                // slices
+                var slices = this.reader.getFloat(grandChildren[0], 'slices');
+                if (!(slices != null && !isNaN(x1)))
+                    return "unable to parse slices of the primitive coordinates for ID = " + primitiveId;
+                //stacks
+                var stacks = this.reader.getFloat(grandChildren[0], 'stacks');
+                if (!(stacks != null && !isNaN(x1)))
+                    return "unable to parse stacks of the primitive coordinates for ID = " + primitiveId;
+
+                var sph = new MySphere(this.scene, primitiveId, radius, slices, stacks);
+
+                this.primitives[primitiveId] = sph;
+            }
             else {
                 console.warn("To do: Parse other primitives.");
             }
@@ -800,10 +819,12 @@ class MySceneGraph {
         //To do: Create display loop for transversing the scene graph
 
         //To test the parsing/creation of the primitives, call the display function directly
-        this.primitives['demoRectangle'].display();
+        //this.primitives['demoRectangle'].display();
 
         this.primitives['demoTriangle'].display();
 
-        this.primitives['demoCylinder'].display();
+       // this.primitives['demoCylinder'].display();
+
+        this.primitives['demoSphere'].display();
     }
 }
