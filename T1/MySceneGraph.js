@@ -651,6 +651,29 @@ class MySceneGraph {
 
                 this.primitives[primitiveId] = sph;
             }
+            //Torus
+            else if(primitiveType == 'torus'){
+                // inner
+                var inner = this.reader.getFloat(grandChildren[0], 'inner');
+                if (!(inner != null && !isNaN(x1)))
+                    return "unable to parse baseRadius of the primitive coordinates for ID = " + primitiveId;
+                // outer
+                var outer = this.reader.getFloat(grandChildren[0], 'outer');
+                if (!(outer != null && !isNaN(x1)))
+                    return "unable to parse topRadius of the primitive coordinates for ID = " + primitiveId;
+                // slices
+                var slices = this.reader.getFloat(grandChildren[0], 'slices');
+                if (!(slices != null && !isNaN(x1)))
+                    return "unable to parse slices of the primitive coordinates for ID = " + primitiveId;
+                //loops
+                var loops = this.reader.getFloat(grandChildren[0], 'loops');
+                if (!(loops != null && !isNaN(x1)))
+                    return "unable to parse stacks of the primitive coordinates for ID = " + primitiveId;
+
+                var tor = new MyTorus(this.scene, primitiveId, inner, outer, slices, loops);
+
+                this.primitives[primitiveId] = tor;
+            }
             else {
                 console.warn("To do: Parse other primitives.");
             }
@@ -834,10 +857,12 @@ class MySceneGraph {
         //To test the parsing/creation of the primitives, call the display function directly
         //this.primitives['demoRectangle'].display();
 
-        this.primitives['demoTriangle'].display();
+        //this.primitives['demoTriangle'].display();
 
-       // this.primitives['demoCylinder'].display();
+        //this.primitives['demoCylinder'].display();
 
-        this.primitives['demoSphere'].display();
+        //this.primitives['demoSphere'].display();
+
+        this.primitives['demoTorus'].display();
     }
 }
