@@ -725,8 +725,52 @@ class MySceneGraph {
             var textureIndex = nodeNames.indexOf("texture");
             var childrenIndex = nodeNames.indexOf("children");
 
-            this.onXMLMinorError("To do: Parse components.");
-            // Transformations
+            // this.onXMLMinorError("To do: Parse components.");
+
+            var component = new MyComponent(this.scene);
+
+            var transformations = grandChildren[transformationIndex];
+
+            // Transformation
+           
+
+            for(var i = 0; i < transformations.length; i++){
+                
+                // for a set of transformations
+                var transformationChildren = transformations[i].children;
+                var transformArray = mat4.create();
+
+                for (var j = 0; j < transformations.length; j++) {
+                    if (transformations[j].nodeName == "translate") {
+                        var t_x = this.reader.getFloat(transformations[j], 'x');
+                        var t_y = this.reader.getFloat(transformations[j], 'y');
+                        var t_z = this.reader.getFloat(transformations[j], 'z');
+                        mat4.translate(transformArray, transformArray, [t_x, t_y, t_z]);
+                    }
+                    else if (transformations[j].nodeName == "scale") {
+                        var s_x = this.reader.getFloat(transformations[j], 'x');
+                        var s_y = this.reader.getFloat(transformations[j], 'y');
+                        var s_z = this.reader.getFloat(transformations[j], 'z');
+                        mat4.scale(transformArray, transformArray, [s_x, s_y, s_z]);
+                    }
+                    else if (transformations[j].nodeName == "rotate") {
+                        var axis = this.reader.getString(transformations[j], 'axis');
+                        var angle = this.reader.getFloat(transformations[j], 'angle');
+                        if (axis == "x")
+                            mat4.rotateX(transformArray, transformArray, angle * (Math.PI / 180));
+                        else if (axis == "y")
+                            mat4.rotateY(transformArray, transformArray, angle * (Math.PI / 180));
+                        else if (axis == "z")
+                            mat4.rotateZ(transformArray, transformArray, angle * (Math.PI / 180));
+                    }
+                    else if (transformations[j].nodeName == "transformationref") {
+                        var idTref = this.reader.getString(transformations[j], 'id');
+                        transformArray = transformMap[idTref];
+                    }
+
+                }
+                component.transformationIndex = transformArray;
+            }
 
             // Materials
 
@@ -734,6 +778,9 @@ class MySceneGraph {
 
             // Children
         }
+
+        this.log("Parsed components");
+        return null;
     }
 
 
@@ -848,6 +895,9 @@ class MySceneGraph {
         console.log("   " + message);
     }
 
+    // function that processes all nodes finding transformations
+    
+
     /**
      * Displays the scene, processing each node, starting in the root node.
      */
@@ -862,6 +912,8 @@ class MySceneGraph {
         //this.primitives['demoCylinder'].display();
 
         //this.primitives['demoSphere'].display();
+
+        //this.transformations['demoTransform'];
 
         this.primitives['demoTorus'].display();
     }
