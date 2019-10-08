@@ -13,4 +13,5 @@ class MyComponent extends CGFobject {
         this.primitives = primitives;
         this.components = components;
     }
+
 }

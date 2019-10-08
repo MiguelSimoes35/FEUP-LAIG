@@ -767,6 +767,7 @@ class MySceneGraph {
                     else if (transformations.children[j].nodeName == "rotate") {
                         var axis = this.reader.getString(transformations.children[j], 'axis');
                         var angle = this.reader.getFloat(transformations.children[j], 'angle');
+
                         if (axis == "x")
                             mat4.rotateX(transformArray, transformArray, angle * (Math.PI / 180));
                         else if (axis == "y")
@@ -784,7 +785,6 @@ class MySceneGraph {
                 //component.transformations = transformArray;
 
             }
-            
 
             // Materials
 
@@ -983,5 +983,6 @@ class MySceneGraph {
 
         
         this.processNodes(this.idRoot);
+
     }
 }
