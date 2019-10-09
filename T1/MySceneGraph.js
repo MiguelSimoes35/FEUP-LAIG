@@ -733,6 +733,7 @@ class MySceneGraph {
             
             var transformations = grandChildren[transformationIndex];
             /*
+
             
             for(var i = 0; i < transformations.children.length; i++){
                 nodeNames.push(transformations.children[i].nodeName);
@@ -768,6 +769,7 @@ class MySceneGraph {
                     else if (transformations.children[j].nodeName == "rotate") {
                         var axis = this.reader.getString(transformations.children[j], 'axis');
                         var angle = this.reader.getFloat(transformations.children[j], 'angle');
+
                         if (axis == "x")
                             mat4.rotateX(transformArray, transformArray, angle * (Math.PI / 180));
                         else if (axis == "y")
@@ -805,6 +807,7 @@ class MySceneGraph {
                        return "Valor de cref nulo";
                    }
                    comp.push(cRef);
+
                 }
                 else if (grandgrandChildren[j].nodeName == "primitiveref") {
                     var pRef = this.reader.getString(grandgrandChildren[j], 'id');
@@ -985,5 +988,6 @@ class MySceneGraph {
 
         
         this.processNodes(this.idRoot);
+
     }
 }

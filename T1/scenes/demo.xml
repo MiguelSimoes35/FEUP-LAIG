@@ -71,8 +71,10 @@
             <materials>
             </materials>
             <children>
+
                 <componentref id="Torus"/>
                 <componentref id="Pe"/>
+
                 <!--> <primitiveref id="demoTriangle" />
                 <primitiveref id="demoCylinder" />
                 <primitiveref id="demoSphere" />
