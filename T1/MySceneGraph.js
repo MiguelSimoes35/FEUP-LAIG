@@ -209,6 +209,7 @@ class MySceneGraph {
             return "no root defined for scene";
 
         this.idRoot = root;
+        //this.idRoot = demoRoot;
 
         // Get axis length        
         var axis_length = this.reader.getFloat(sceneNode, 'axis_length');
@@ -725,15 +726,103 @@ class MySceneGraph {
             var textureIndex = nodeNames.indexOf("texture");
             var childrenIndex = nodeNames.indexOf("children");
 
-            this.onXMLMinorError("To do: Parse components.");
-            // Transformations
+            // this.onXMLMinorError("To do: Parse components.");
+
+            // Transformation
+            //var component = new MyComponent(this.scene, );
+            
+            var transformations = grandChildren[transformationIndex];
+            /*
+            
+            for(var i = 0; i < transformations.children.length; i++){
+                nodeNames.push(transformations.children[i].nodeName);
+            }
+
+            var transRefIndex = nodeNames.indexOf("transformationref");
+
+            if(transRefIndex != -1){
+                var transformationID = this.reader.getString(transformations.children[transRefIndex], 'id');
+                if(this.transformations[tranformationID] == null){
+                    return "this transformation does not exist : " + componentID;
+                }
+                
+            }
+            else{
+
+                // for a set of transformations
+                var transformArray = mat4.create();
+
+                for (var j = 0; j < transformations.children.length; j++) {
+                    if (transformations.children[j].nodeName == "translate") {
+                        var t_x = this.reader.getFloat(transformations.children[j], 'x');
+                        var t_y = this.reader.getFloat(transformations.children[j], 'y');
+                        var t_z = this.reader.getFloat(transformations.children[j], 'z');
+                        mat4.translate(transformArray, transformArray, [t_x, t_y, t_z]);
+                    }
+                    else if (transformations.children[j].nodeName == "scale") {
+                        var s_x = this.reader.getFloat(transformations.children[j], 'x');
+                        var s_y = this.reader.getFloat(transformations.children[j], 'y');
+                        var s_z = this.reader.getFloat(transformations.children[j], 'z');
+                        mat4.scale(transformArray, transformArray, [s_x, s_y, s_z]);
+                    }
+                    else if (transformations.children[j].nodeName == "rotate") {
+                        var axis = this.reader.getString(transformations.children[j], 'axis');
+                        var angle = this.reader.getFloat(transformations.children[j], 'angle');
+                        if (axis == "x")
+                            mat4.rotateX(transformArray, transformArray, angle * (Math.PI / 180));
+                        else if (axis == "y")
+                            mat4.rotateY(transformArray, transformArray, angle * (Math.PI / 180));
+                        else if (axis == "z")
+                            mat4.rotateZ(transformArray, transformArray, angle * (Math.PI / 180));
+                    }
+                    else if (transformations.children[j].nodeName == "transformationref") {
+                        var idTref = this.reader.getString(transformations[j], 'id');
+                        transformations = transformArray[idTref];
+                    }
+
+                }
+
+                //component.transformations = transformArray;
+
+            }
+            */
+            
 
             // Materials
 
             // Texture
 
             // Children
+            var comp = [];
+            var prim = [];
+
+            grandgrandChildren = grandChildren[childrenIndex].children;
+
+            for (var j = 0; j < grandgrandChildren.length; j++) {
+                if (grandgrandChildren[j].nodeName == "componentref") {
+                    var cRef = this.reader.getString(grandgrandChildren[j], 'id');
+                   if(cRef == null) {
+                       return "Valor de cref nulo";
+                   }
+                   comp.push(cRef);
+                }
+                else if (grandgrandChildren[j].nodeName == "primitiveref") {
+                    var pRef = this.reader.getString(grandgrandChildren[j], 'id');
+                    if(pRef == null) {
+                        return "Valor de pref nulo";
+                    }
+                    prim.push(pRef);
+                }
+                else
+                    this.onXMLMinorError("component children must be componentref or primitiveref");
+            }
+
+            this.components[componentID] = new MyComponent(this.scene, componentID, transformations, prim, comp);
+
         }
+
+        this.log("Parsed components");
+        return null;
     }
 
 
@@ -848,6 +937,33 @@ class MySceneGraph {
         console.log("   " + message);
     }
 
+    // function that processes all nodes finding transformations
+    processNodes(component){
+        
+        
+        if(this.components[component].components.length == 0){
+            
+            for(var i = 0; i < this.components[component].primitives.length; i++){
+                this.scene.pushMatrix();
+                //this.scene.multMatrix(this.components[component].transformations);
+                this.primitives[this.components[component].primitives[i]].display();
+                this.scene.popMatrix();
+            }
+        }
+        else{
+
+            for(var i = 0; i < this.components[component].components.length; i++){
+                var c = this.components[component].components[i];
+                
+                this.processNodes(this.components[component].components[i]);
+            }
+        }
+        
+
+        
+    }
+    
+
     /**
      * Displays the scene, processing each node, starting in the root node.
      */
@@ -863,6 +979,11 @@ class MySceneGraph {
 
         //this.primitives['demoSphere'].display();
 
-        this.primitives['demoTorus'].display();
+        //this.transformations['demoTransform'];
+
+        //this.primitives['demoTorus'].display();
+
+        
+        this.processNodes(this.idRoot);
     }
 }

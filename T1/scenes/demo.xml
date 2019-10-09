@@ -62,22 +62,46 @@
     </primitives>
 
     <components>
+        
         <component id="demoRoot">
             <transformation>
                 <translate x="0" y="0" z="1" />
                 <scale x="2" y="1" z="1" />
             </transformation>
             <materials>
-                <material id="demoMaterial" />
             </materials>
-            <texture id="demoTexture"/>
             <children>
-                <primitiveref id="demoRectangle" />
-                <primitiveref id="demoTriangle" />
+                <componentref id="Torus"/>
+                <componentref id="Pe"/>
+                <!--> <primitiveref id="demoTriangle" />
                 <primitiveref id="demoCylinder" />
                 <primitiveref id="demoSphere" />
-                <primitiveref id="demoTorus" />
+                <primitiveref id="demoTorus" /> </!-->
             </children>
         </component>
+
+        <component id="Pe" >
+            <transformation>
+              <!-- <transformationref id="DemoTransform" /> -->
+            </transformation>
+            <materials>
+            </materials>
+            <children>
+                <primitiveref id="demoCylinder"/>
+                <primitiveref id="demoSphere"/>
+            </children>
+        </component>
+
+        <component id="Torus" >
+            <transformation>
+              <!-- <transformationref id="DemoTransform" /> -->
+            </transformation>
+            <materials>
+            </materials>
+            <children>
+                <primitiveref id="demoTorus"/>
+            </children>
+        </component>
+        
     </components>
 </lxs>
