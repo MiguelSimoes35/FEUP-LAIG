@@ -33,13 +33,64 @@
             <diffuse r="0.6" g="0.0" b="0.0" a="1.0" />
             <specular r="0.6" g="0.0" b="0.0" a="1.0" />
         </material>
+        <material id="green" shininess="1">
+            <emission r="0.0" g="0.0" b="0.0" a="1.0" />
+            <ambient r="0.2" g="1.0" b="0.0" a="1.0" />
+            <diffuse r="0.2" g="1.0" b="0.0" a="1.0" />
+            <specular r="0.5" g="0.5" b="0.5" a="1.0" />
+        </material>
+        <material id="orange" shininess="1">
+            <emission r="0.0" g="0.0" b="0.0" a="1.0" />
+            <ambient r="1.0" g="0.5" b="0.0" a="1.0" />
+            <diffuse r="1.0" g="0.5" b="0.0" a="1.0" />
+            <specular r="0.5" g="0.5" b="0.5" a="1.0" />
+        </material>
+        <material id="blue" shininess="1">
+            <emission r="0.0" g="0.0" b="0.0" a="1.0" />
+            <ambient r="0.0" g="0.5" b="1.0" a="1.0" />
+            <diffuse r="0.0" g="0.5" b="1.0" a="1.0" />
+            <specular r="0" g="0" b="1.0" a="1.0" />
+        </material>
+        <material id="yellow" shininess="1">
+            <emission r="0.0" g="0.0" b="0.0" a="1.0" />
+            <ambient r="0.5" g="0.5" b="0.5" a="1.0" />
+            <diffuse r="1.0" g="1.0" b="0.0" a="1.0" />
+            <specular r="1.0" g="1.0" b="0.0" a="1.0" />
+        </material>
+        <material id="red" shininess="1">
+            <emission r="0.0" g="0.0" b="0.0" a="1.0" />
+            <ambient r="0.5" g="0.5" b="0.5" a="1.0" />
+            <diffuse r="1.0" g="0.0" b="0.0" a="1.0" />
+            <specular r="1.0" g="0.0" b="0.0" a="1.0" />
+        </material>
+        <material id="pink" shininess="1">
+            <emission r="0.0" g="0.0" b="0.0" a="1.0" />
+            <ambient r="0.5" g="0.5" b="0.5" a="1.0" />
+            <diffuse r="1.0" g="0.0" b="0.5" a="1.0" />
+            <specular r="1.0" g="0.0" b="0.5" a="1.0" />
+        </material>
+        <material id="white" shininess="1">
+            <emission r="0.0" g="0.0" b="0.0" a="1.0" />
+            <ambient r="0.5" g="0.5" b="0.5" a="1.0" />
+            <diffuse r="1.0" g="1.0" b="1.0" a="1.0" />
+            <specular r="1.0" g="1.0" b="1.0" a="1.0" />
+        </material>
+        <material id="black" shininess="1">
+            <emission r="0.0" g="0.0" b="0.0" a="1.0" />
+            <ambient r="0.5" g="0.5" b="0.5" a="1.0" />
+            <diffuse r="0.0" g="0.0" b="0.0" a="1.0" />
+            <specular r="0.1" g="0.1" b="0.1" a="1.0" />
+        </material>
+
+        
+        
     </materials>
 
     <transformations>
         <transformation id="demoTransform">
-            <scale x="5" y="1" z="5" />
-            <rotate axis="x" angle="-45" />
-            <rotate axis="z" angle="-45" />
+            <scale x="0.75" y="0.75" z="0.5" />
+            <!-- <rotate axis="x" angle="-45" />
+            <rotate axis="z" angle="-45" /> -->
         </transformation>
     </transformations>
 
@@ -62,22 +113,46 @@
     </primitives>
 
     <components>
+        
         <component id="demoRoot">
             <transformation>
-                <translate x="0" y="0" z="1" />
-                <scale x="2" y="1" z="1" />
             </transformation>
             <materials>
-                <material id="demoMaterial" />
             </materials>
-            <texture id="demoTexture"/>
             <children>
-                <primitiveref id="demoRectangle" />
-                <primitiveref id="demoTriangle" />
+                <componentref id="PW"/>
+                <componentref id="Torus"/>
+                <!--> <primitiveref id="demoTriangle" />
                 <primitiveref id="demoCylinder" />
                 <primitiveref id="demoSphere" />
-                <primitiveref id="demoTorus" />
+                <primitiveref id="demoTorus" /> </!-->
             </children>
         </component>
+
+        <component id="PW" >
+            <transformation>
+            </transformation>
+            <materials>
+                <material id = "pink"/>
+            </materials>
+            <children>
+                <primitiveref id="demoCylinder"/>
+                <primitiveref id="demoSphere"/>
+            </children>
+        </component>
+
+        <component id="Torus" >
+            <transformation>
+              <!-- <transformationref id="demoTransform" /> -->
+              <scale x="0.75" y="0.75" z="0.5" />
+            </transformation>
+            <materials>
+                <material id = "green"/>
+            </materials>
+            <children>
+                <primitiveref id="demoTorus"/>
+            </children>
+        </component>
+        
     </components>
 </lxs>
