@@ -26,7 +26,10 @@ class MySphere extends CGFobject {
         var j;
         
         this.theta = (2 * Math.PI) / this.stacks;
-        this.fi = (2 * Math.PI) / this.slices;
+		this.fi = (2 * Math.PI) / this.slices;
+		
+		var tex_s = 1 / this.slices;
+        var tex_t = 1 / this.stacks;
 
         for (i = 0; i <= this.stacks; i++) {
             for (j = 0; j <= this.slices; j++) {
@@ -42,6 +45,23 @@ class MySphere extends CGFobject {
 				this.indices.push(i * this.slices + j, (i + 1) * (this.slices) + j + 1, i * this.slices + j + 1);
 			}
 		}
+
+		for (i = 0; i <= this.stacks; i++) {
+			for (j = 0; j <= this.slices; j++) {
+				
+				
+				if(i != 0){
+					this.texCoords.push(tex_s * j, 0.5 + tex_t * i);
+				}
+				
+				this.texCoords.push(tex_s * j, 0.5 - tex_t * i)
+
+			}
+		}
+		// for the poles
+		this.texCoords.push(0.5, 0);
+		this.texCoords.push(0.5, 1);
+
 		
 		/*
 		Texture coords (s,t)
