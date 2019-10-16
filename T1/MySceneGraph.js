@@ -1068,33 +1068,41 @@ class MySceneGraph {
     // function that processes all nodes finding transformations
     processNodes(component){
         
-        this.scene.pushMatrix();
+        //this.scene.pushMatrix();
 
         if(this.components[component].components.length == 0){
             var materialID = this.components[component].getMaterialID();
-
-            for(var i = 0; i < this.components[component].primitives.length; i++){  
-                this.scene.multMatrix(this.components[component].transformations); 
-
+            
+            for(var i = 0; i < this.components[component].primitives.length; i++){
+                
+                this.scene.pushMatrix();
+                
+                this.scene.multMatrix(this.components[component].transformations);
+                
                 if(this.components[component].materials.length != 0){
                     this.materials[materialID].apply();
                 }
                 if(this.components[component].texture != null){
-                    //this.materials["demoMaterial"].loadTexture(this.components[component].texture);
                     this.materials[materialID].setTexture(this.textures[this.components[component].texture]);
                 }
                 this.primitives[this.components[component].primitives[i]].display();
-                this.primitives[this.components[component].primitives[i]].enableNormalViz(); 
-
+                //this.primitives[this.components[component].primitives[i]].enableNormalViz();
+                this.scene.popMatrix();
+                
             }
+
         }
         else {
             for(var i = 0; i < this.components[component].components.length; i++){
                 var c = this.components[component].components[i];
+                this.scene.pushMatrix();
                 this.processNodes(this.components[component].components[i]);
+                this.scene.popMatrix();
             }
         }
-        this.scene.popMatrix();
+        
+        //this.scene.popMatrix();
+        
     }
     
     /**
