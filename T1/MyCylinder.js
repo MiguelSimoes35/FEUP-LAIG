@@ -26,14 +26,19 @@ class MyCylinder extends CGFobject {
         this.normals = [];
         this.texCoords = []; //TO DO!!!
 
+        var tex_s = 1 / this.slices;
+        var tex_t = 1 / this.stacks;
+
         var i;
         var j;
+
+        // vertices
         for (i = 0; i <= this.stacks; i++) {
             for (j = 0; j <= this.slices; j++) {
                 this.vertices.push((((i * (this.topRadius - this.baseRadius) / this.stacks)) + this.baseRadius) * Math.cos(j * ((2 * Math.PI) / this.slices)), (((i * (this.topRadius - this.baseRadius) / this.stacks)) + this.baseRadius) * Math.sin(j*((2 * Math.PI) / this.slices)), (this.height * i) / this.stacks);
             }
         }
-
+        // indices
         for (i = 0; i < this.stacks; i++) {
             for (j = 0; j < this.slices; j++) {
                 this.indices.push((this.stacks + 1) * (i + 1) + j, (this.stacks + 1) * i + j, (this.stacks + 1) * i + j + 1);
@@ -43,13 +48,18 @@ class MyCylinder extends CGFobject {
                 this.indices.push((this.stacks + 1) * (i + 1) + j, (this.stacks + 1) * (i + 1) + j + 1, (this.stacks + 1) * i + j + 1);
             }
         }
-
+        // normals
         for (i = 0; i <= this.stacks; i++) {
             for (j = 0; j <= this.slices; j++) {
                 this.normals.push(Math.cos(j * ((2 * Math.PI) / this.slices)), Math.sin(j * ((2 * Math.PI) / this.slices)), Math.atan((this.baseRadius - this.topRadius) / this.height));
             }
         }
-		
+        //texCoords
+		for (i = 0; i <= this.stacks; i++) {
+            for (j = 0; j <= this.slices; j++) {
+                this.texCoords.push(tex_s * j, 1 - tex_t * i);
+            }
+        }
 		/*
 		Texture coords (s,t)
 		+----------> s
