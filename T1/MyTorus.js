@@ -32,14 +32,14 @@ class MyTorus extends CGFobject {
         for (i = 0; i <= this.loops; i++) {
             for (j = 0; j <= this.slices; j++) {
                 this.vertices.push((this.outer + this.inner * Math.cos(this.theta * j)) * Math.cos(this.fi * i), (this.outer + this.inner * Math.cos(this.theta * j)) * Math.sin(this.fi * i), this.inner * Math.sin(this.theta * j));
-                this.normals.push(Math.cos(this.theta * j) * Math.cos(this.fi * i), Math.cos(this.theta * j) * Math.cos(this.fi * i), Math.sin(this.theta * j));
+                this.normals.push(Math.cos(this.theta * j) * Math.cos(this.fi * i), Math.cos(this.theta * j) * Math.sin(this.fi * i), Math.sin(this.theta * j));
             }
         }
 
         for (i = 0; i < this.loops; i++) {
             for (j = 0; j < this.slices; j++) {
-                this.indices.push((i * (this.slices + 1)) + j, (i * (this.slices + 1)) + j + this.slices + 2, (i * (this.slices + 1)) + j + this.slices + 1);
-                this.indices.push((i * (this.slices + 1)) + j, (i * (this.slices + 1)) + j + 1, (i * (this.slices + 1)) + j + this.slices + 2);                
+                this.indices.push((i * (this.slices + 1)) + j, (i * (this.slices + 1)) + j + this.slices + 1, (i * (this.slices + 1)) + j + this.slices + 2);
+                this.indices.push((i * (this.slices + 1)) + j, (i * (this.slices + 1)) + j + this.slices + 2, (i * (this.slices + 1)) + j + 1);                
             }
         }
 		

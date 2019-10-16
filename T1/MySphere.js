@@ -20,7 +20,7 @@ class MySphere extends CGFobject {
         this.vertices = [];
         this.indices = [];
         this.normals = [];
-        this.texCoords = []; //TO DO!!!
+        this.texCoords = []; 
 
         var i;
         var j;
@@ -31,18 +31,18 @@ class MySphere extends CGFobject {
         for (i = 0; i <= this.stacks; i++) {
             for (j = 0; j <= this.slices; j++) {
                 this.vertices.push(this.radius * Math.cos(this.theta * i) * Math.cos(this.fi * j), this.radius * Math.cos(this.theta * i) * Math.sin(this.fi * j), this.radius * Math.sin(this.theta * i));
-                this.normals.push(Math.cos(this.theta * i) * Math.cos(this.fi * j), Math.cos(this.theta * i) * Math.sin(this.fi * j), Math.sin(this.theta * i));
+				this.normals.push(Math.cos(this.theta * i) * Math.cos(this.fi * j), Math.cos(this.theta * i) * Math.sin(this.fi * j), Math.sin(this.theta * i));
+				this.texCoords.push(j / this.slices, i / this.stacks);
             }
         }
 
-		//To see how to add the indexes
 		for (i = 0; i <= this.stacks; i++) {
 			for (j = 0; j <= this.slices; j++) {
-				this.indices.push(i * this.slices + j, (i + 1) * (this.slices) + j, (i + 1) * this.slices + j + 1);
-				this.indices.push(i * this.slices + j, (i + 1) * (this.slices) + j + 1, i * this.slices + j + 1);
+				this.indices.push(j * this.slices + i, (j + 1) * (this.slices) + i, (j + 1) * this.slices + i + 1);
+				this.indices.push(j * this.slices + i, (j + 1) * (this.slices) + i + 1, j * this.slices + i + 1);
 			}
 		}
-		
+
 		/*
 		Texture coords (s,t)
 		+----------> s

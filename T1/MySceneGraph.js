@@ -679,11 +679,11 @@ class MySceneGraph {
                 // x2
                 var x2 = this.reader.getFloat(grandChildren[0], 'x2');
                 if (!(x2 != null && !isNaN(x2)))
-                    return "unable to parse x1 of the primitive coordinates for ID = " + primitiveId;
+                    return "unable to parse x2 of the primitive coordinates for ID = " + primitiveId;
                 // x3
                 var x3 = this.reader.getFloat(grandChildren[0], 'x3');
                 if (!(x3 != null && !isNaN(x3)))
-                    return "unable to parse x1 of the primitive coordinates for ID = " + primitiveId;
+                    return "unable to parse x3 of the primitive coordinates for ID = " + primitiveId;
 
                 // y1
                 var y1 = this.reader.getFloat(grandChildren[0], 'y1');
@@ -698,7 +698,20 @@ class MySceneGraph {
                 if (!(y3 != null && !isNaN(y3)))
                     return "unable to parse y2 of the primitive coordinates for ID = " + primitiveId;
 
-                var tri = new MyTriangle(this.scene, primitiveId, x1, x2, x3, y1, y2, y3);
+                // z1
+                var z1 = this.reader.getFloat(grandChildren[0], 'z1');
+                if (!(z1 != null && !isNaN(z1)))
+                    return "unable to parse z1 of the primitive coordinates for ID = " + primitiveId;
+                // z2
+                var z2 = this.reader.getFloat(grandChildren[0], 'z2');
+                if (!(z2 != null && !isNaN(z2)))
+                    return "unable to parse z2 of the primitive coordinates for ID = " + primitiveId;
+                // z3
+                var z3 = this.reader.getFloat(grandChildren[0], 'z3');
+                if (!(z3 != null && !isNaN(z3)))
+                    return "unable to parse z3 of the primitive coordinates for ID = " + primitiveId;
+
+                var tri = new MyTriangle(this.scene, primitiveId, x1, x2, x3, y1, y2, y3, z1, z2, z3);
 
                 this.primitives[primitiveId] = tri;
             }
@@ -1058,13 +1071,11 @@ class MySceneGraph {
         this.scene.pushMatrix();
 
         if(this.components[component].components.length == 0){
-
             var materialID = this.components[component].getMaterialID();
-            
-            for(var i = 0; i < this.components[component].primitives.length; i++){
-                
-                this.scene.multMatrix(this.components[component].transformations);
-                
+
+            for(var i = 0; i < this.components[component].primitives.length; i++){  
+                this.scene.multMatrix(this.components[component].transformations); 
+
                 if(this.components[component].materials.length != 0){
                     this.materials[materialID].apply();
                 }
@@ -1072,25 +1083,20 @@ class MySceneGraph {
                     //this.materials["demoMaterial"].loadTexture(this.components[component].texture);
                     this.materials[materialID].setTexture(this.textures[this.components[component].texture]);
                 }
-
                 this.primitives[this.components[component].primitives[i]].display();
-                
+                this.primitives[this.components[component].primitives[i]].enableNormalViz(); 
+
             }
         }
-        else{
-
+        else {
             for(var i = 0; i < this.components[component].components.length; i++){
                 var c = this.components[component].components[i];
-                
                 this.processNodes(this.components[component].components[i]);
             }
         }
-        
         this.scene.popMatrix();
-        
     }
     
-
     /**
      * Displays the scene, processing each node, starting in the root node.
      */
@@ -1109,7 +1115,6 @@ class MySceneGraph {
         //this.transformations['demoTransform'];
 
         //this.primitives['demoTorus'].display();
-
         
         this.processNodes(this.idRoot);
     }
