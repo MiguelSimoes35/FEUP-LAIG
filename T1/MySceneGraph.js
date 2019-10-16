@@ -1062,6 +1062,7 @@ class MySceneGraph {
             var materialID = this.components[component].getMaterialID();
             
             for(var i = 0; i < this.components[component].primitives.length; i++){
+                
                 this.scene.pushMatrix();
                 
                 this.scene.multMatrix(this.components[component].transformations);
