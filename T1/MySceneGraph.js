@@ -314,9 +314,12 @@ class MySceneGraph {
                 if(upIndex == -1){
                     up = [0, 1, 0];
                 }
-                up = this.parseCoordinates3D(grandChildren[upIndex], viewId);
-                if (!Array.isArray(up))
+                else{
+                    up = this.parseCoordinates3D(grandChildren[upIndex], viewId);
+                    if (!Array.isArray(up))
                     return up;
+                }
+                
 
                 var ortho = new CGFcameraOrtho(left, right, bottom, top, near, far, vec3.fromValues(...from), vec3.fromValues(...to), vec3.fromValues(...up));
                 this.views[viewId] = ortho;
