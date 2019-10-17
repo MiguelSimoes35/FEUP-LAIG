@@ -27,6 +27,10 @@ class MyInterface extends CGFinterface {
         return true;
     }
 
+    initMyInterface() {
+        //To Develop
+    }
+
     /**
      * initKeys
      */

@@ -228,7 +228,105 @@ class MySceneGraph {
      * @param {view block element} viewsNode
      */
     parseView(viewsNode) {
-        this.onXMLMinorError("To do: Parse views and create cameras.");
+        var children = viewsNode.children;
+
+        var nCameras = 0;
+        this.views = [];
+        var nodeNames = [];
+        var grandChildren = [];
+
+        this.defaultId = this.reader.getString(viewsNode, 'default');
+        if (this.defaultId == null)
+            return "no default view defined";
+
+        // Any number of views.
+        for (var i = 0; i < children.length; i++) {
+
+            if (children[i].nodeName != "perspective" && children[i].nodeName != "ortho") {
+                this.onXMLMinorError("unknown tag <" + children[i].nodeName + ">");
+                continue;
+            }
+
+            // Get id of the current view.
+            var viewId = this.reader.getString(children[i], 'id');
+            if (viewId == null)
+                return "no ID defined for view";
+
+            // Checks for repeated IDs.
+            if (this.views[viewId] != null)
+                return "ID must be unique for each view (conflict: ID = " + viewId + ")";
+
+
+            var near = this.reader.getFloat(children[i], 'near');
+            if (!(near != null && !isNaN(near)))
+                return "unable to parse near of view = " + viewId;
+
+            var far = this.reader.getFloat(children[i], 'far');
+            if (!(far != null && !isNaN(far)))
+                return "unable to parse far of view = " + viewId;
+    
+            grandChildren = children[i].children;
+
+            nodeNames = [];
+            for (var j = 0; j < grandChildren.length; j++) {
+                nodeNames.push(grandChildren[j].nodeName);
+            }
+
+            var fromIndex = nodeNames.indexOf('from');
+            var toIndex = nodeNames.indexOf('to');
+           
+            var from = this.parseCoordinates3D(grandChildren[fromIndex], viewId);
+            if (!Array.isArray(from))
+                return from;
+            var to = this.parseCoordinates3D(grandChildren[toIndex], viewId);
+            if (!Array.isArray(to))
+                return to;
+            
+            if(children[i].nodeName == 'perspective'){
+                
+                var angle = this.reader.getFloat(children[i], 'angle');
+                if (!(angle != null && !isNaN(angle)))
+                    return "unable to parse angle of view = " + viewId;
+
+                var perspective = new CGFcamera(angle * DEGREE_TO_RAD, near, far, vec3.fromValues(...from), vec3.fromValues(...to));
+                this.views[viewId] = perspective;
+            }
+            else if(children[i].nodeName == 'ortho'){
+
+                var left = this.reader.getFloat(children[i], 'left');
+                if (!(left != null && !isNaN(left)))
+                    return "unable to parse left of view = " + viewId;
+
+                var right = this.reader.getFloat(children[i], 'right');
+                if (!(right != null && !isNaN(right)))
+                    return "unable to parse right of view = " + viewId;
+
+                var top = this.reader.getFloat(children[i], 'top');
+                if (!(top != null && !isNaN(top)))
+                    return "unable to parse top of view = " + viewId;
+
+                var bottom = this.reader.getFloat(children[i], 'bottom');
+                if (!(bottom != null && !isNaN(bottom)))
+                    return "unable to parse bottom of view = " + viewId;
+
+                var upIndex = nodeNames.indexOf('up');
+                var up;
+                if(upIndex == -1){
+                    up = [0, 1, 0];
+                }
+                up = this.parseCoordinates3D(grandChildren[upIndex], viewId);
+                if (!Array.isArray(up))
+                    return up;
+
+                var ortho = new CGFcameraOrtho(left, right, bottom, top, near, far, vec3.fromValues(...from), vec3.fromValues(...to), vec3.fromValues(...up));
+                this.views[viewId] = ortho;
+            }
+            nCameras++;
+        }
+
+        if(nCameras == 0){
+            return "no cameras defined";
+        }
 
         return null;
     }

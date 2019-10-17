@@ -81,6 +81,11 @@ class XMLscene extends CGFscene {
         }
     }
 
+    initMyCameras(){
+        this.camera = this.graph.views[this.graph.defaultId];
+        this.interface.setActiveCamera(this.camera);
+    }
+
     setDefaultAppearance() {
         this.setAmbient(0.2, 0.4, 0.8, 1.0);
         this.setDiffuse(0.2, 0.4, 0.8, 1.0);
@@ -98,6 +103,10 @@ class XMLscene extends CGFscene {
         this.setGlobalAmbientLight(this.graph.ambient[0], this.graph.ambient[1], this.graph.ambient[2], this.graph.ambient[3]);
 
         this.initLights();
+
+        this.initMyCameras();
+
+        this.interface.initMyInterface();
 
         this.sceneInited = true;
     }
