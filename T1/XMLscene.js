@@ -34,6 +34,13 @@ class XMLscene extends CGFscene {
 
         this.axis = new CGFaxis(this);
         this.setUpdatePeriod(100);
+
+        this.scaleFactor = 1;
+
+        this.selectedView = null;
+        this.cameraIDs = [];
+        
+        this.lightIDs = new Object();
     }
 
     /**
@@ -53,6 +60,9 @@ class XMLscene extends CGFscene {
         for (var key in this.graph.lights) {
             if (i >= 8)
                 break;              // Only eight lights allowed by WebGL.
+
+            
+            this.lightIDs[key] = i;
 
             if (this.graph.lights.hasOwnProperty(key)) {
                 var light = this.graph.lights[key];
@@ -82,9 +92,26 @@ class XMLscene extends CGFscene {
     }
 
     initMyCameras(){
-        this.camera = this.graph.views[this.graph.defaultId];
+
+        
+        for (var id in this.graph.views) {
+            this.cameraIDs.push(id);
+        }
+        
+
+        //this.selectedCamera = this.graph.defaultId;
+        this.selectedView = this.cameraIDs[0];
+        this.changeCamera();
+    }
+
+    changeCamera() {
+
+        // this creates a camera with the selectedView
+        this.camera = this.graph.views[this.selectedView];
+        // this enables the camera movement
         this.interface.setActiveCamera(this.camera);
     }
+
 
     setDefaultAppearance() {
         this.setAmbient(0.2, 0.4, 0.8, 1.0);
@@ -102,9 +129,10 @@ class XMLscene extends CGFscene {
 
         this.setGlobalAmbientLight(this.graph.ambient[0], this.graph.ambient[1], this.graph.ambient[2], this.graph.ambient[3]);
 
-        this.initLights();
 
         this.initMyCameras();
+
+        this.initLights();
 
         this.interface.initMyInterface();
 
@@ -129,6 +157,7 @@ class XMLscene extends CGFscene {
         this.applyViewMatrix();
 
         this.pushMatrix();
+        this.setDefaultAppearance();
         this.axis.display();
 
         for (var i = 0; i < this.lights.length; i++) {
@@ -139,6 +168,13 @@ class XMLscene extends CGFscene {
         if (this.sceneInited) {
             // Draw axis
             this.setDefaultAppearance();
+
+            //Scale Factor
+            var sca = [this.scaleFactor, 0.0, 0.0, 0.0,
+                        0.0, this.scaleFactor, 0.0, 0.0,
+                        0.0, 0.0, this.scaleFactor, 0.0,
+                        0.0, 0.0, 0.0, 1.0];
+            this.multMatrix(sca);
 
             // Displays the scene (MySceneGraph function).
             this.graph.displayScene();
