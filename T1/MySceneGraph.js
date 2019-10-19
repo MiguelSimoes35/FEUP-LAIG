@@ -314,9 +314,12 @@ class MySceneGraph {
                 if(upIndex == -1){
                     up = [0, 1, 0];
                 }
-                up = this.parseCoordinates3D(grandChildren[upIndex], viewId);
-                if (!Array.isArray(up))
+                else{
+                    up = this.parseCoordinates3D(grandChildren[upIndex], viewId);
+                    if (!Array.isArray(up))
                     return up;
+                }
+                
 
                 var ortho = new CGFcameraOrtho(left, right, bottom, top, near, far, vec3.fromValues(...from), vec3.fromValues(...to), vec3.fromValues(...up));
                 this.views[viewId] = ortho;
@@ -1194,6 +1197,7 @@ class MySceneGraph {
             for(var i = 0; i < this.components[component].components.length; i++){
                 var c = this.components[component].components[i];
                 this.scene.pushMatrix();
+                this.scene.multMatrix(this.components[component].transformations);
                 this.processNodes(this.components[component].components[i]);
                 this.scene.popMatrix();
             }
