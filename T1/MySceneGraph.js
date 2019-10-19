@@ -1030,10 +1030,10 @@ class MySceneGraph {
                 return "The texture " + texID + "cannot have length_s and length_t values."; 
             }
 
-            if(l_s == null){
+            if(l_s == null || l_S == 0){
                 l_s = 1;
             }
-            if(l_t == null){
+            if(l_t == null || l_t == 0){
                 l_t = 1;
             }
 
@@ -1183,7 +1183,7 @@ class MySceneGraph {
     }
 
     // function that processes all nodes finding transformations
-    processNodes(component, fatherTexture, fatherMaterial){
+    processNodes(component, fatherTexture, fatherMaterial, len_s, len_t){
         
         //this.scene.pushMatrix();
 
@@ -1205,6 +1205,8 @@ class MySceneGraph {
                 if(this.components[component].texture != null){
                     if(this.components[component].texture == "inherit") {
                         this.components[component].texture = fatherTexture;
+                        this.components[component].l_s = len_s;
+                        this.components[component].l_t = len_t;
                     }
                     this.materials[materialID].setTexture(this.textures[this.components[component].texture]);
                 }
@@ -1219,10 +1221,12 @@ class MySceneGraph {
             for(var i = 0; i < this.components[component].components.length; i++){
                 var c = this.components[component].components[i];
                 var ft = this.components[component].texture;
-                var mat = this.components[component].getMaterialID();             
+                var mat = this.components[component].getMaterialID(); 
+                var len_s = this.components[component].l_s;
+                var len_t = this.components[component].l_t;            
                 this.scene.pushMatrix();
                 this.scene.multMatrix(this.components[component].transformations);
-                this.processNodes(this.components[component].components[i], ft, mat);
+                this.processNodes(this.components[component].components[i], ft, mat, len_s, len_t);
                 this.scene.popMatrix();
             }
         }
