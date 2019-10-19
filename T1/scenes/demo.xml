@@ -1,11 +1,8 @@
 <!--
     TO DO LIST
         - Construir uma cena composta
-        - Construir uma interface!!!!!! (Done)
         - Colocar os materiais no ciclo da tecla M
-        - Merge das views a ser dado: criação de uma view ortho (Going on)
         - Ter uma luz omni e outra spot
-        - Texturas: None e Inherit (Falta ver forma de os herdar para os filhos)
         - CLEAN CODE!!!!!
 -->
 
@@ -149,6 +146,7 @@
             <transformation>
             </transformation>
             <materials>
+                <material id="green" />
             </materials>
             <texture id="none" />
             <children>
@@ -214,7 +212,7 @@
                 <translate x="-3" y="20.5" z="-5"/>       
             </transformation>
             <materials>
-                <material id = "green"/>
+                <material id = "inherit"/>
             </materials>
             <texture id = "none"/>
             <children>

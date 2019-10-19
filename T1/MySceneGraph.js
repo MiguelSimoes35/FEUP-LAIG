@@ -994,8 +994,9 @@ class MySceneGraph {
             for (var j = 0; j < grandgrandChildren.length; j++) {
                 var materialID = this.reader.getString(grandgrandChildren[j], 'id');
 
-                if (materialID == null)
+                if (materialID == null) {
                     return "Cant parse material of component " + componentID;
+                }
                 if (materialID != "inherit" && this.materials[materialID] == null) {
                     return "No material with ID " + materialID;
                 }
@@ -1060,7 +1061,6 @@ class MySceneGraph {
                 else
                     this.onXMLMinorError("component children must be componentref or primitiveref");
             }
-            //debugger;
             this.components[componentID] = new MyComponent(this.scene, componentID, materials, texID, l_s, l_t, prim, comp);
             this.components[componentID].transformations = transfMatrix;
 
@@ -1183,7 +1183,7 @@ class MySceneGraph {
     }
 
     // function that processes all nodes finding transformations
-    processNodes(component){
+    processNodes(component, fatherTexture, fatherMaterial){
         
         //this.scene.pushMatrix();
 
@@ -1197,9 +1197,15 @@ class MySceneGraph {
                 this.scene.multMatrix(this.components[component].transformations);
                 
                 if(this.components[component].materials.length != 0){
+                    if(materialID == "inherit") {
+                        materialID = fatherMaterial;
+                    }
                     this.materials[materialID].apply();
                 }
                 if(this.components[component].texture != null){
+                    if(this.components[component].texture == "inherit") {
+                        this.components[component].texture = fatherTexture;
+                    }
                     this.materials[materialID].setTexture(this.textures[this.components[component].texture]);
                 }
                 this.primitives[this.components[component].primitives[i]].display();
@@ -1212,8 +1218,10 @@ class MySceneGraph {
         else {
             for(var i = 0; i < this.components[component].components.length; i++){
                 var c = this.components[component].components[i];
+                var ft = this.components[component].texture;
+                var mat = this.components[component].getMaterialID();             
                 this.scene.pushMatrix();
-                this.processNodes(this.components[component].components[i]);
+                this.processNodes(this.components[component].components[i], ft, mat);
                 this.scene.popMatrix();
             }
         }

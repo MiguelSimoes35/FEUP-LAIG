@@ -11,7 +11,7 @@ class MyComponent extends CGFobject {
         this.id = id;
         this.materials = materials;
 
-        this.texture= texture;
+        this.texture = texture;
         this.l_s = l_s;
         this.l_t = l_t;
 
