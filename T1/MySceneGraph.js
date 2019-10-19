@@ -495,12 +495,9 @@ class MySceneGraph {
     parseTextures(texturesNode) {
 
         //For each texture in textures block, check ID and file URL
-        //this.onXMLMinorError("To do: Parse textures.");
 
         var children = texturesNode.children;
-
         this.textures = [];
-
 
         // any number of textures
         for(var i = 0; i < children.length; i++){
@@ -518,24 +515,23 @@ class MySceneGraph {
 
             // Checks for repeated IDs.
             if (this.textures[textureID] != null)
-                return "ID must be unique for each texture (conflict: ID = " + textureID + ")";
-
-            
-            
+                return "ID must be unique for each texture (conflict: ID = " + textureID + ")";            
 
             var file = this.reader.getString(children[i], 'file');
             if(file == null){
                 return "no file found";
             }
 
+            var image = file.match(/\.png|jpg$/i);
+            if(image == null) {
+                return "Invalid extension for the texture with texture ID " + textureID;
+            }
+
             var texture = new CGFtexture(this.scene, file);
             this.textures[textureID] = texture; 
-
         }
 
-
         this.log("Parsed textures");
-
         return null;
     }
 
@@ -936,8 +932,6 @@ class MySceneGraph {
             var textureIndex = nodeNames.indexOf("texture");
             var childrenIndex = nodeNames.indexOf("children");
 
-            // this.onXMLMinorError("To do: Parse components.");
-
             // Transformations
 
             var transfMatrix;
@@ -992,7 +986,6 @@ class MySceneGraph {
                 }
 
             }
-            
         
             // Materials
             var materials = [];
@@ -1000,16 +993,41 @@ class MySceneGraph {
 
             for (var j = 0; j < grandgrandChildren.length; j++) {
                 var materialID = this.reader.getString(grandgrandChildren[j], 'id');
+
+                if (materialID == null)
+                    return "Cant parse material of component " + componentID;
+                if (materialID != "inherit" && this.materials[materialID] == null) {
+                    return "No material with ID " + materialID;
+                }
+                if (componentID == this.idRoot && materialID == "inherit") {
+                    return "Initial Root cannot inherit materials";
+                }
+
                 materials.push(materialID);
             }
 
-
-
-            // Texture - TODO
+            // Texture
             var texID = this.reader.getString(grandChildren[textureIndex], 'id');
+
+            if(texID == null) {
+                return "Cant parse texture of component " + componentID;
+            }
+            
+            if(this.textures[texID] == null && texID != "none" && texID != "inherit") {
+                return "No texture with ID " + texID;
+            }
+
+            //idRoot cannot inherit textures
+            if(componentID == this.idRoot && texID == "inherit") {
+                return "Initial Root cannot inherit textures";
+            }
 
             var l_s = this.reader.getFloat(grandChildren[textureIndex], 'l_s', false);
             var l_t = this.reader.getFloat(grandChildren[textureIndex], 'l_t', false);
+
+            if ((texID == "none" || texID == "inherit") && (l_s != null || l_t != null)) {
+                return "The texture " + texID + "cannot have length_s and length_t values."; 
+            }
 
             if(l_s == null){
                 l_s = 1;
@@ -1017,8 +1035,6 @@ class MySceneGraph {
             if(l_t == null){
                 l_t = 1;
             }
-
-            
 
             // Children
             var comp = [];

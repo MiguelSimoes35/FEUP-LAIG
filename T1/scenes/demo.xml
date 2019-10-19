@@ -6,9 +6,9 @@
         - Merge das views a ser dado: criação de uma view ortho -> DONE
         - Ter uma luz omni e outra spot ->DONE
         - Texturas: None e Inherit 
+
         - CLEAN CODE!!!!!
 -->
-
 
 <lxs>
     <scene root="demoRoot" axis_length="5"/>
@@ -164,6 +164,7 @@
             </transformation>
             <materials>
             </materials>
+            <texture id="none" />
             <children>
                 <componentref id = "Floor"/>
                 <componentref id = "Team1_Piece1"/>
@@ -268,6 +269,7 @@
             <materials>
                 <material id = "green"/>
             </materials>
+            <texture id="none" />
             <children>
                 <primitiveref id="demoTorus"/>
             </children>
@@ -328,6 +330,7 @@
             <materials>
                 <material id = "green"/>
             </materials>
+            <texture id="none" />
             <children>
                 <primitiveref id="demoCylinder"/>
                 <primitiveref id="demoSphere"/>
@@ -343,6 +346,7 @@
             <materials>
                 <material id = "pink"/>
             </materials>
+            <texture id="none" />
             <children>
                 <primitiveref id="Cone"/>
                 <primitiveref id="demoTorus"/>
