@@ -1221,6 +1221,7 @@ class MySceneGraph {
                 var ft = this.components[component].texture;
                 var mat = this.components[component].getMaterialID();             
                 this.scene.pushMatrix();
+                this.scene.multMatrix(this.components[component].transformations);
                 this.processNodes(this.components[component].components[i], ft, mat);
                 this.scene.popMatrix();
             }

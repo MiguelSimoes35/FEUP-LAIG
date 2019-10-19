@@ -35,7 +35,7 @@ class XMLscene extends CGFscene {
         this.axis = new CGFaxis(this);
         this.setUpdatePeriod(100);
 
-        this.scaleFactor = 1;
+        this.scaleFactor = 1.5;
 
         this.selectedView = null;
         this.cameraIDs = [];
@@ -160,10 +160,14 @@ class XMLscene extends CGFscene {
         this.setDefaultAppearance();
         this.axis.display();
 
+        // Updating lights to enable and disable them
         for (var i = 0; i < this.lights.length; i++) {
-            this.lights[i].setVisible(true);
-            this.lights[i].enable();
+            this.lights[i].update();
         }
+
+        
+        
+        
 
         if (this.sceneInited) {
             // Draw axis
