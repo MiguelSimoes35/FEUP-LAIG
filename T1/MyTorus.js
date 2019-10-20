@@ -27,6 +27,9 @@ class MyTorus extends CGFobject {
         this.theta = (2 * Math.PI) / this.slices;
         this.fi = (2 * Math.PI) / this.loops;
 
+        var tex_s = 1 / this.slices;
+        var tex_t = 1 / this.loops;
+
         var i;
         var j;
         for (i = 0; i <= this.loops; i++) {
@@ -42,7 +45,12 @@ class MyTorus extends CGFobject {
                 this.indices.push((i * (this.slices + 1)) + j, (i * (this.slices + 1)) + j + this.slices + 2, (i * (this.slices + 1)) + j + 1);                
             }
         }
-		
+
+        for (i = 0; i < this.loops; i++) {
+            for (j = 0; j < this.slices; j++) {
+                this.texCoords.push(tex_s * j, 1 - tex_t * i);
+            }
+        }
 		/*
 		Texture coords (s,t)
 		+----------> s

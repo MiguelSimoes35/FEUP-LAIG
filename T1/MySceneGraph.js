@@ -1223,7 +1223,13 @@ class MySceneGraph {
                 var ft = this.components[component].texture;
                 var mat = this.components[component].getMaterialID(); 
                 var len_s = this.components[component].l_s;
-                var len_t = this.components[component].l_t;            
+                var len_t = this.components[component].l_t;  
+                if(ft == "inherit") {
+                    ft = fatherTexture;
+                }          
+                if(mat == "inherit") {
+                    mat = fatherMaterial;
+                }
                 this.scene.pushMatrix();
                 this.scene.multMatrix(this.components[component].transformations);
                 this.processNodes(this.components[component].components[i], ft, mat, len_s, len_t);
