@@ -1,11 +1,3 @@
-<!--
-    TO DO LIST
-        - Construir uma cena composta
-        - Colocar os materiais no ciclo da tecla M
-        - Preparar ficheiros de entrega
-        - CLEAN CODE!!!!!
--->
-
 <lxs>
     <scene root="Root" axis_length="5"/>
 
