@@ -2,6 +2,7 @@
  * MySphere
  * @constructor
  * @param scene - Reference to MyScene object
+ * @param id - ID of the primitive
  * @param radius - Radius of the sphere
  * @param slices - number of divisions in 
  * @param stacks - number of divisions in 
@@ -9,6 +10,7 @@
 class MySphere extends CGFobject {
 	constructor(scene, id, radius, slices, stacks) {
 		super(scene);
+		this.id = id;
 		this.radius = radius;
         this.slices = slices;
         this.stacks = stacks;
@@ -56,17 +58,6 @@ class MySphere extends CGFobject {
 		// for the poles
 		this.texCoords.push(0.5, 0);
 		this.texCoords.push(0.5, 1);
-
-		
-		/*
-		Texture coords (s,t)
-		+----------> s
-        |
-        |
-		|
-		v
-        t
-        */
 
 		this.primitiveType = this.scene.gl.TRIANGLES;
 		this.initGLBuffers();

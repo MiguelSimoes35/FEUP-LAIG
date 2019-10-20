@@ -2,6 +2,7 @@
  * MyTriangle
  * @constructor
  * @param scene - Reference to MyScene object
+ * @param id - ID of the primitive
  * @param x1 - X coordinate of point 1
  * @param x2 - X coordinate of point 2
  * @param x3 - X coordinate of point 3
@@ -13,10 +14,10 @@
  * @param z3 - Z coordinate of point 3
  */
 
- 
-class MyTriangle extends CGFobject {
+ class MyTriangle extends CGFobject {
 	constructor(scene, id, x1, x2, x3, y1, y2, y3, z1, z2, z3) {
 		super(scene);
+		this.id = id;
 		this.x1 = x1;
         this.x2 = x2;
         this.x3 = x3;
@@ -32,9 +33,9 @@ class MyTriangle extends CGFobject {
 	
 	initBuffers() {
 		this.vertices = [
-			this.x1, this.y1, this.z1,	//0
-			this.x2, this.y2, this.z2,	//1
-			this.x3, this.y3, this.z3 	//2
+			this.x1, this.y1, this.z1,
+			this.x2, this.y2, this.z2,
+			this.x3, this.y3, this.z3
 
 		];
 
@@ -68,16 +69,6 @@ class MyTriangle extends CGFobject {
 		this.texCoords.push(a, 0);
 		this.texCoords.push(c * cosAlpha, c * senAlpha);
 
-		/*
-		Texture coords (s,t)
-		+----------> s
-        |
-        |
-		|
-		v
-        t
-        */
-
 		this.primitiveType = this.scene.gl.TRIANGLES;
 		this.initGLBuffers();
 	}
@@ -92,4 +83,3 @@ class MyTriangle extends CGFobject {
 		this.updateTexCoordsGLBuffers();
 	}
 }
-

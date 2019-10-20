@@ -61,7 +61,6 @@ class XMLscene extends CGFscene {
             if (i >= 8)
                 break;              // Only eight lights allowed by WebGL.
 
-            
             this.lightIDs[key] = i;
 
             if (this.graph.lights.hasOwnProperty(key)) {
@@ -92,12 +91,10 @@ class XMLscene extends CGFscene {
     }
 
     initMyCameras(){
-
         
         for (var id in this.graph.views) {
             this.cameraIDs.push(id);
-        }
-        
+        }      
 
         //this.selectedCamera = this.graph.defaultId;
         this.selectedView = this.cameraIDs[0];
@@ -111,7 +108,6 @@ class XMLscene extends CGFscene {
         // this enables the camera movement
         this.interface.setActiveCamera(this.camera);
     }
-
 
     setDefaultAppearance() {
         this.setAmbient(0.2, 0.4, 0.8, 1.0);
@@ -128,7 +124,6 @@ class XMLscene extends CGFscene {
         this.gl.clearColor(this.graph.background[0], this.graph.background[1], this.graph.background[2], this.graph.background[3]);
 
         this.setGlobalAmbientLight(this.graph.ambient[0], this.graph.ambient[1], this.graph.ambient[2], this.graph.ambient[3]);
-
 
         this.initMyCameras();
 
@@ -164,10 +159,6 @@ class XMLscene extends CGFscene {
         for (var i = 0; i < this.lights.length; i++) {
             this.lights[i].update();
         }
-
-        
-        
-        
 
         if (this.sceneInited) {
             // Draw axis

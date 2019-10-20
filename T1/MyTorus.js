@@ -2,6 +2,7 @@
  * MyTorus
  * @constructor
  * @param scene - Reference to MyScene object
+ * @param id - ID of the primitive
  * @param inner - Radius of the torus
  * @param outer - Radius inside of the torus
  * @param slices - number of divisions around the inner radius
@@ -9,7 +10,8 @@
  */
 class MyTorus extends CGFobject {
 	constructor(scene, id, inner, outer, slices, loops) {
-		super(scene);
+        super(scene);
+        this.id = id
 		this.inner = inner;
 		this.outer = outer;
         this.slices = slices;
@@ -22,7 +24,7 @@ class MyTorus extends CGFobject {
         this.vertices = [];
         this.indices = [];
         this.normals = [];
-        this.texCoords = []; //TO DO!!!
+        this.texCoords = [];
 
         this.theta = (2 * Math.PI) / this.slices;
         this.fi = (2 * Math.PI) / this.loops;
@@ -51,15 +53,6 @@ class MyTorus extends CGFobject {
                 this.texCoords.push(tex_s * j, 1 - tex_t * i);
             }
         }
-		/*
-		Texture coords (s,t)
-		+----------> s
-        |
-        |
-		|
-		v
-        t
-        */
 
 		this.primitiveType = this.scene.gl.TRIANGLES;
 		this.initGLBuffers();
