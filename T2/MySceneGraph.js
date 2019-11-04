@@ -687,6 +687,118 @@ class MySceneGraph {
     }
 
     /**
+     * 
+     * @param {animations block element} animationsNode 
+     */
+    parseAnimations(animationsNode){
+
+        var children = animationsNode.children;
+
+        this.animations = [];
+        // this.keyframes = [];
+
+        // any number of animations
+        for(var i = 0; i < children.length; i++){
+
+            this.keyframes = [];
+
+            if (children[i].nodeName != "animation") {
+                this.onXMLMinorError("unknown tag <" + children[i].nodeName + ">");
+                continue;
+            }
+
+            // Get id of the current animation
+            var animationID = this.reader.getString(children[i], 'id');
+            if (animationID == null)
+                return "no ID defined for animation";
+
+            // Checks for repeated IDs.
+            if (this.animations[animationID] != null)
+                return "ID must be unique for each primitive (conflict: ID = " + animationID + ")";
+
+            grandChildren = children[i].children;
+
+            // any number of keyframes
+            for(var j = 0; j < grandChildren.length; j++){
+
+                if (grandChildren[j].nodeName != "keyframe") {
+                    this.onXMLMinorError("unknown tag <" + grandChildren[j].nodeName + ">");
+                    continue;
+                }
+
+                // Get instant of the current keyframe
+                var keyframeInstant = this.reader.getString(grandChildren[j], 'instant');
+                if (keyframeInstant == null)
+                    return "no instant defined for keyframe";
+
+                // has the transformations on the keyframe
+                grandgrandChildren = grandChildren[j].children;
+
+                if(grandgrandChildren.length != 3 || (
+                    grandgrandChildren[0].nodeName != 'translate' &&
+                        grandgrandChildren[1].nodeName != 'rotate' &&
+                            grandgrandChildren[2].nodeName != 'scale'
+                )){
+                    return "There must be exactly 3 transformations in each keyframe (translate, rotate and scale)"
+                }
+
+                if(grandgrandChildren[0] == 'translate'){
+                    //x
+                    var x = this.reader.getFloat(grandgrandChildren[0], 'x');
+                    if (!(x != null && !isNaN(x)))
+                        return "unable to parse x of the translation of keyframe in instant = " + keyframeInstant;
+                    //y
+                    var y = this.reader.getFloat(grandgrandChildren[0], 'y');
+                    if (!(y != null && !isNaN(y)))
+                        return "unable to parse y of the translation of keyframe in instant = " + keyframeInstant;
+                    //z
+                    var z = this.reader.getFloat(grandgrandChildren[0], 'z');
+                    if (!(z != null && !isNaN(z)))
+                        return "unable to parse z of the translation of keyframe in instant = " + keyframeInstant;
+                
+                }
+                if(grandgrandChildren[1] == 'rotate'){
+                    //angle_x
+                    var angle_x = this.reader.getFloat(grandgrandChildren[1], 'angle_x');
+                    if (!(angle_x != null && !isNaN(angle_x)))
+                        return "unable to parse angle_x of the rotation of keyframe in instant = " + keyframeInstant;
+                    //angle_y
+                    var angle_y = this.reader.getFloat(grandgrandChildren[1], 'angle_y');
+                    if (!(angle_y != null && !isNaN(angle_y)))
+                        return "unable to parse angle_y of the rotation of keyframe in instant = " + keyframeInstant;
+                    //angle_z
+                    var angle_z = this.reader.getFloat(grandgrandChildren[1], 'angle_z');
+                    if (!(angle_z != null && !isNaN(angle_z)))
+                        return "unable to parse angle_z of the rotation of keyframe in instant = " + keyframeInstant;
+                
+                }
+                if(grandgrandChildren[2] == 'scale'){
+                    //x
+                    var x = this.reader.getFloat(grandgrandChildren[2], 'x');
+                    if (!(x != null && !isNaN(x)))
+                        return "unable to parse x of the scaling of keyframe in instant = " + keyframeInstant;
+                    //y
+                    var y = this.reader.getFloat(grandgrandChildren[2], 'y');
+                    if (!(y != null && !isNaN(y)))
+                        return "unable to parse y of the scaling of keyframe in instant = " + keyframeInstant;
+                    //z
+                    var z = this.reader.getFloat(grandgrandChildren[2], 'z');
+                    if (!(z != null && !isNaN(z)))
+                        return "unable to parse z of the scaling of keyframe in instant = " + keyframeInstant;
+                
+                }
+
+                // TO DO - criar novo elemento da classe keyFrameAnimation e adiciona-lo ao vetor keyframes 
+
+            }
+
+            // TO DO - criar novo elemento da classe Animation com o vetor keyframes criado no segundo ciclo
+            // TO DO - adicionar esse elemento ao vetor animations
+        }
+
+    }
+
+    /**
      * Parses the <primitives> block.
      * @param {primitives block element} primitivesNode
      */
