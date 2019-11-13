@@ -1,6 +1,14 @@
-<lxs>
-    <scene root="Root" axis_length="5"/>
+<!--
+    TO DO LIST
+        - Construir uma cena composta
+        - Colocar os materiais no ciclo da tecla M
+        - Ter uma luz omni e outra spot
+        - CLEAN CODE!!!!!
+-->
 
+<lxs>
+    <scene root="demoRoot" axis_length="5"/>
+    <!-- here lie the views -->
     <views default="defaultCamera">
         <perspective id="defaultCamera" near="0.1" far="500" angle="45">
             <from x="30" y="15" z="30" />
@@ -21,7 +29,7 @@
         <ambient r="0.2" g="0.2" b="0.2" a="1.0" />
         <background r="0.0" g="0.0" b="0.0" a="1.0" />
     </globals>
-
+    <!-- here lie the lights -->
     <lights>
         <omni id="omniLight" enabled="1">
             <location x="9.8" y="11.9" z="10" w="1.0" />
@@ -46,15 +54,21 @@
             <attenuation constant="1" linear="0" quadratic="0"/>
         </spot>
     </lights>
-
+    <!-- here lie the textures -->
     <textures>
-        <texture id="vidral" file="scenes/images/vidral.jpg" />
+        <texture id="demoTexture" file="scenes/images/vidral.jpg" />
         <texture id="trunk" file="scenes/images/trunk-image.jpg" />
         <texture id="chess" file="scenes/images/chess.jpg"/>
         <texture id="space" file="scenes/images/space.jpg"/>
     </textures>
-
+    <!-- here lie the materials -->
     <materials>
+        <material id="demoMaterial" shininess="10">
+            <emission r="0.0" g="0.0" b="0.0" a="1.0" />
+            <ambient r="1.0" g="0.0" b="0.0" a="1.0" />
+            <diffuse r="0.6" g="0.0" b="0.0" a="1.0" />
+            <specular r="0.6" g="0.0" b="0.0" a="1.0" />
+        </material>
         <material id="green" shininess="1">
             <emission r="0.0" g="0.0" b="0.0" a="1.0" />
             <ambient r="0.2" g="1.0" b="0.0" a="1.0" />
@@ -110,101 +124,58 @@
             <specular r="0.1" g="0.1" b="0.1" a="1.0" />
         </material>   
     </materials>
-
+    <!-- here lie the transformations -->
     <transformations>
-        <transformation id="t_Torus_Transform">
-            <rotate axis="x" angle="90"/>
-            <scale x="0.25" y="0.25" z="0.25" />
-            <translate x="0" y="0" z="-7" />
-        </transformation>
-        <transformation id="t_Sphere_Transform">
-            <scale x="1" y="2.5" z="1"/>
-            <scale x="0.3" y="0.3" z="0.3"/>
-            <translate x="0" y="1.7" z="0" />
-        </transformation>
-        <transformation id="t_Cone_Up_Transform">
-            <rotate axis="x" angle="90"/>
-            <translate x="0" y="0" z="3" />
-        </transformation>
-        <transformation id="t_Cone_Down_Transform">
-            <rotate axis="x" angle="-90"/>
-            <translate x="0" y="0" z="-3" />
+        <transformation id="demoTransform">
+            <scale x="0.75" y="0.75" z="0.5" />
+            <rotate axis="x" angle="-45" />
+            <rotate axis="z" angle="-45" />
         </transformation>
     </transformations>
-
-    <animations>
-        <animation id="teste">
-            <keyframe instant="5.0">
-                <translate x="0" y="0" z="-3" />
-                <rotate angle_x="0" angle_y="0" angle_z="0" />
-                <scale x="1.0" y="1.0" z="1.0" />
-            </keyframe>
-            
-            <keyframe instant="10.0">
-                <translate x="-3" y="0" z="0" />
-                <rotate angle_x="0" angle_y="0" angle_z="0" />
-                <scale x="1.0" y="1.0" z="1.0" />
-            </keyframe>
-            
-        </animation>
-        <animation id="peca_go">
-            <keyframe instant="10.0">
-                <translate x="0" y="0" z="0" />
-                <rotate angle_x="0" angle_y="0" angle_z="0" />
-                <scale x="1.5" y="1.5" z="1.5" />
-            </keyframe>
-            
-            <keyframe instant="15.0">
-                <translate x="0" y="0" z="3" />
-                <rotate angle_x="0" angle_y="0" angle_z="0" />
-                <scale x="1.0" y="1.0" z="1.0" />
-            </keyframe>
-            
-        </animation>
-    </animations>
-
+    <!-- here lie the primitives -->
     <primitives>
-        <primitive id="Rectangle">
+        <primitive id="demoRectangle">
             <rectangle x1="-0.5" y1="-1" x2="0.5" y2="1" />
         </primitive>
-        <primitive id="Triangle">
+        <primitive id="demoTriangle">
             <triangle x1="0" x2="0" x3="0" y1="5" y2="8" y3="5" z1="-2" z2="0" z3="2"/>
         </primitive>
-        <primitive id="Cylinder">
+        <primitive id="demoCylinder">
             <cylinder baseRadius="2" topRadius="1" height="5" slices="10" stacks="10" />
         </primitive>
-        <primitive id="EvenCylinder">
+        <primitive id="demoEvenCylinder">
             <cylinder baseRadius="1" topRadius="1" height="5" slices="10" stacks="10" />
         </primitive>
         <primitive id="Cone">
             <cylinder baseRadius="2" topRadius="0" height="5" slices="10" stacks="10" />
         </primitive>
-        <primitive id="Sphere">
+        <primitive id="demoSphere">
             <sphere radius="2" slices = "10" stacks ="10" />
         </primitive>
-        <primitive id="Torus">
+        <primitive id="demoTorus">
             <torus inner="0.5" outer="3" slices = "30" loops ="20" />
         </primitive>
-        <primitive id="Square">
+        <primitive id="demoSquare">
             <rectangle x1="-1" y1="-1" x2="1" y2="1" />
         </primitive>
     </primitives>
-
+    <!-- here lie the components -->
     <components>
-        <component id="Root">
+        <!-- scene composition is done here -->
+        <component id="demoRoot">
             <transformation>
             </transformation>
             <materials>
-                <material id="white" />
+                <material id="green" />
             </materials>
-            <texture id="chess" />
+            <texture id="none" />
             <children>
                 <componentref id = "Floor"/>
-
                 <componentref id = "Team1_Piece1"/>
                 <componentref id = "Team1_Piece2"/>
                 <componentref id = "Team1_Piece3"/>
                 <componentref id = "Team1_Piece4"/>
+
                 <componentref id = "Team1_Piece5"/>
                 <componentref id = "Team1_Piece6"/>
                 <componentref id = "Team1_Piece7"/>
@@ -214,48 +185,56 @@
                 <componentref id = "Team2_Piece2"/>
                 <componentref id = "Team2_Piece3"/>
                 <componentref id = "Team2_Piece4"/>
+
                 <componentref id = "Team2_Piece5"/> 
                 <componentref id = "Team2_Piece6"/> 
                 <componentref id = "Team2_Piece7"/> 
                 <componentref id = "Team2_Piece8"/>
 
                 <componentref id = "Sign"/>
+
                 <componentref id = "Box" />
             </children>
         </component>
 
         <component id="t_torus" >
             <transformation>
-                <transformationref id="t_Torus_Transform" />
+                <rotate axis="x" angle="90"/>
+                <scale x="0.25" y="0.25" z="0.25" />
+                <translate x="0" y="0" z="-7" />
             </transformation>
             <materials>
-                <material id = "inherit"/>
+                <material id = "yellow"/>
             </materials>
             <texture id = "none"/>
             <children>
-                <primitiveref id="Torus"/>
+                <primitiveref id="demoTorus"/>
             </children>
         </component>
 
         <component id="t_sphere" >
             <transformation>
-                <transformationref id="t_Sphere_Transform" />
+                <scale x="1" y="2.5" z="1"/>
+                <scale x="0.3" y="0.3" z="0.3"/>
+                <translate x="0" y="1.7" z="0" />
             </transformation>
             <materials>
-                <material id = "inherit"/>
+                <material id = "yellow"/>
             </materials>
             <texture id = "none"/>
             <children>
-                <primitiveref id="Sphere"/>
+                <primitiveref id="demoSphere"/>
             </children>
         </component>
 
         <component id="t_cone_up" >
             <transformation>
-                <transformationref id="t_Cone_Up_Transform" />
+                <!-- <translate x="0" y="0" z="-5" /> -->
+                <rotate axis="x" angle="90"/>
+                <translate x="0" y="0" z="3" />
             </transformation>
             <materials>
-                <material id = "inherit"/>
+                <material id = "blue"/>
             </materials>
             <texture id = "none"/>
             <children>
@@ -264,14 +243,43 @@
         </component>
         <component id="t_cone_down" >
             <transformation>
-                <transformationref id="t_Cone_Down_Transform" />
+                <!-- <translate x="0" y="0" z="-5" /> -->
+                <rotate axis="x" angle="-90"/>
+                <translate x="0" y="0" z="-3" />
             </transformation>
             <materials>
-                <material id = "inherit"/>
+                <material id = "blue"/>
             </materials>
             <texture id = "none"/>
             <children>
                 <primitiveref id="Cone"/>
+            </children>
+        </component>
+
+
+        <component id="PW" >
+            <transformation>
+            </transformation>
+            <materials>
+                <material id = "white2"/>
+            </materials>
+            <texture id = "demoTexture"/>
+            <children>
+                <primitiveref id="demoCylinder"/>
+                <primitiveref id="demoSphere"/>
+            </children>
+        </component>
+
+        <component id="Torus" >
+            <transformation>
+              <scale x="0.75" y="0.75" z="0.5" />
+            </transformation>
+            <materials>
+                <material id = "green"/>
+            </materials>
+            <texture id="none" />
+            <children>
+                <primitiveref id="demoTorus"/>
             </children>
         </component>
 
@@ -283,9 +291,9 @@
             <materials>
                 <material id = "white"/>
             </materials>
-            <texture id="inherit"/>
+            <texture id="chess"/>
             <children>
-                <primitiveref id="Rectangle"/>
+                <primitiveref id="demoRectangle"/>
             </children>
         </component>
 
@@ -296,117 +304,12 @@
                 <translate x="-3" y="20.5" z="-5"/>       
             </transformation>
             <materials>
-                <material id="green"/>
+                <material id = "inherit"/>
             </materials>
-            <texture id="none"/>
+            <texture id = "none"/>
             <children>
-                <primitiveref id="Cylinder"/>
-                <primitiveref id="Sphere"/>
-            </children>
-        </component>
-
-        <component id="Team1_Piece2" >
-            <transformation>
-                <rotate axis="x" angle="90"/>
-                <scale x="0.3" y="0.3" z="0.3"/>
-                <translate x="8" y="20.5" z="-5"/>       
-            </transformation>
-            <materials>
-                <material id="green"/>
-            </materials>
-            <texture id="none"/>
-            <children>
-                <primitiveref id="Cylinder"/>
-                <primitiveref id="Sphere"/>
-            </children>
-        </component>
-
-        <component id="Team1_Piece3" >
-            <transformation>
-                <rotate axis="x" angle="90"/>
-                <scale x="0.3" y="0.3" z="0.3"/>
-                <translate x="19" y="20.5" z="-5"/>       
-            </transformation>
-            <animationref id="teste" />
-            <materials>
-                <material id="green"/>
-            </materials>
-            <texture id="none" />
-            <children>
-                <primitiveref id="Cylinder"/>
-                <primitiveref id="Sphere"/>
-            </children>
-        </component>
-
-        <component id="Team1_Piece4" >
-            <transformation>
-                <rotate axis="x" angle="90"/>
-                <scale x="0.3" y="0.3" z="0.3"/>
-                <translate x="-13" y="20.5" z="-5"/>       
-            </transformation>
-            <materials>
-                <material id="green"/>
-            </materials>
-            <texture id="none" />
-            <children>
-                <primitiveref id="Cylinder"/>
-                <primitiveref id="Sphere"/>
-            </children>
-        </component>
-
-        <component id="Team1_Piece5" >
-            <transformation>
-                <translate x="1" y="0" z="4.5" />
-            </transformation>
-            <materials>
-                <material id="yellow"/>
-            </materials>
-            <texture id="none" />
-            <children>
-                <componentref id="t_torus"/>
-                <componentref id="t_sphere"/>
-            </children>
-        </component>
-
-        <component id="Team1_Piece6" >
-            <transformation>
-                <translate x="4.2" y="0" z="4.5" />
-            </transformation>
-            <materials>
-                <material id="yellow"/>
-            </materials>
-            <texture id="none" />
-            <children>
-                <componentref id="t_torus"/>
-                <componentref id="t_sphere"/>
-            </children>
-        </component>
-
-        <component id="Team1_Piece7" >
-            <transformation>
-                <translate x="-2.4" y="0" z="4.5" />
-            </transformation>
-            <materials>
-                <material id="yellow"/>
-            </materials>
-            <texture id="none" />
-            <children>
-                <componentref id="t_torus"/>
-                <componentref id="t_sphere"/>
-            </children>
-        </component>
-
-        <component id="Team1_Piece8" >
-            <transformation>
-                <translate x="-5.5" y="0" z="4.5" />
-            </transformation>
-            <materials>
-                <material id="yellow"/>
-            </materials>
-            <texture id="none" />
-            <children>
-                <componentref id="t_torus"/>
-                <componentref id="t_sphere"/>
+                <primitiveref id="demoCylinder"/>
+                <primitiveref id="demoSphere"/>
             </children>
         </component>
 
@@ -417,12 +320,28 @@
                 <translate x="3" y="20.5" z="0.5"/>   
             </transformation>
             <materials>
-                <material id="pink"/>
+                <material id = "pink"/>
             </materials>
             <texture id="none"/>
             <children>
                 <primitiveref id="Cone"/>
-                <primitiveref id="Torus"/>
+                <primitiveref id="demoTorus"/>
+            </children>
+        </component>
+
+        <component id="Team1_Piece2" >
+            <transformation>
+                <rotate axis="x" angle="90"/>
+                <scale x="0.3" y="0.3" z="0.3"/>
+                <translate x="8" y="20.5" z="-5"/>       
+            </transformation>
+            <materials>
+                <material id = "inherit"/>
+            </materials>
+            <texture id="none" />
+            <children>
+                <primitiveref id="demoCylinder"/>
+                <primitiveref id="demoSphere"/>
             </children>
         </component>
 
@@ -432,14 +351,45 @@
                 <scale x="0.3" y="0.3" z="0.5"/>
                 <translate x="13" y="20.5" z="0.5"/>   
             </transformation>
-            <animationref id="peca_go" />
             <materials>
-                <material id="pink"/>
+                <material id = "pink"/>
             </materials>
             <texture id="none" />
             <children>
                 <primitiveref id="Cone"/>
-                <primitiveref id="Torus"/>
+                <primitiveref id="demoTorus"/>
+            </children>
+        </component>
+
+        <component id="Team1_Piece3" >
+            <transformation>
+                <rotate axis="x" angle="90"/>
+                <scale x="0.3" y="0.3" z="0.3"/>
+                <translate x="19" y="20.5" z="-5"/>       
+            </transformation>
+            <materials>
+                <material id = "inherit"/>
+            </materials>
+            <texture id="none" />
+            <children>
+                <primitiveref id="demoCylinder"/>
+                <primitiveref id="demoSphere"/>
+            </children>
+        </component>
+
+        <component id="Team1_Piece4" >
+            <transformation>
+                <rotate axis="x" angle="90"/>
+                <scale x="0.3" y="0.3" z="0.3"/>
+                <translate x="-13" y="20.5" z="-5"/>       
+            </transformation>
+            <materials>
+                <material id = "inherit"/>
+            </materials>
+            <texture id="none" />
+            <children>
+                <primitiveref id="demoCylinder"/>
+                <primitiveref id="demoSphere"/>
             </children>
         </component>
 
@@ -450,15 +400,14 @@
                 <translate x="-19" y="20.5" z="0.5"/>   
             </transformation>
             <materials>
-                <material id="pink"/>
+                <material id = "pink"/>
             </materials>
             <texture id="none" />
             <children>
                 <primitiveref id="Cone"/>
-                <primitiveref id="Torus"/>
+                <primitiveref id="demoTorus"/>
             </children>
         </component>
-
         <component id="Team2_Piece4" >
             <transformation>
                 <rotate axis="x" angle="-90" />
@@ -466,12 +415,65 @@
                 <translate x="-8" y="20.5" z="0.5"/>   
             </transformation>
             <materials>
-                <material id="pink"/>
+                <material id = "pink"/>
             </materials>
             <texture id="none" />
             <children>
                 <primitiveref id="Cone"/>
-                <primitiveref id="Torus"/>
+                <primitiveref id="demoTorus"/>
+            </children>
+        </component>
+
+        <component id="Team1_Piece5" >
+            <transformation>
+                <translate x="1" y="0" z="4.5" />
+            </transformation>
+            <materials>
+                <material id = "inherit"/>
+            </materials>
+            <texture id="none" />
+            <children>
+                <componentref id="t_torus"/>
+                <componentref id="t_sphere"/>
+            </children>
+        </component>
+        <component id="Team1_Piece6" >
+            <transformation>
+                <translate x="4.2" y="0" z="4.5" />
+            </transformation>
+            <materials>
+                <material id = "pink"/>
+            </materials>
+            <texture id="none" />
+            <children>
+                <componentref id="t_torus"/>
+                <componentref id="t_sphere"/>
+            </children>
+        </component>
+        <component id="Team1_Piece7" >
+            <transformation>
+                <translate x="-2.4" y="0" z="4.5" />
+            </transformation>
+            <materials>
+                <material id = "inherit"/>
+            </materials>
+            <texture id="none" />
+            <children>
+                <componentref id="t_torus"/>
+                <componentref id="t_sphere"/>
+            </children>
+        </component>
+        <component id="Team1_Piece8" >
+            <transformation>
+                <translate x="-5.5" y="0" z="4.5" />
+            </transformation>
+            <materials>
+                <material id = "inherit"/>
+            </materials>
+            <texture id="none" />
+            <children>
+                <componentref id="t_torus"/>
+                <componentref id="t_sphere"/>
             </children>
         </component>
 
@@ -481,7 +483,7 @@
                 <scale x="0.3" y="0.3" z="0.3" />
             </transformation>
             <materials>
-                <material id="blue"/>
+                <material id = "pink"/>
             </materials>
             <texture id="none" />
             <children>
@@ -489,14 +491,13 @@
                 <componentref id="t_cone_down"/>
             </children>
         </component>
-
         <component id="Team2_Piece6" >
             <transformation>
                 <translate x="-3.9" y="2.3" z="-4.3" />
                 <scale x="0.3" y="0.3" z="0.3" />
             </transformation>
             <materials>
-                <material id="blue"/>
+                <material id = "pink"/>
             </materials>
             <texture id="none" />
             <children>
@@ -504,14 +505,13 @@
                 <componentref id="t_cone_down"/>
             </children>
         </component>
-
         <component id="Team2_Piece7" >
             <transformation>
                 <translate x="2.5" y="2.3" z="-4.3" />
                 <scale x="0.3" y="0.3" z="0.3" />
             </transformation>
             <materials>
-                <material id="blue"/>
+                <material id = "pink"/>
             </materials>
             <texture id="none" />
             <children>
@@ -519,14 +519,13 @@
                 <componentref id="t_cone_down"/>
             </children>
         </component>
-
         <component id="Team2_Piece8" >
             <transformation>
                 <translate x="5.8" y="2.3" z="-4.3" />
                 <scale x="0.3" y="0.3" z="0.3" />
             </transformation>
             <materials>
-                <material id="blue"/>
+                <material id = "pink"/>
             </materials>
             <texture id="none" />
             <children>
@@ -540,7 +539,7 @@
                 <translate x="-8" y="0" z="0" />
             </transformation>
             <materials>
-                <material id="white"/>
+                <material id = "pink"/>
             </materials>
             <texture id="none" />
             <children>
@@ -556,11 +555,11 @@
                 <translate x="0" y="0" z="-5" />
             </transformation>
             <materials>
-                <material id="white2"/>
+                <material id = "white2"/>
             </materials>
-            <texture id="vidral" />
+            <texture id="demoTexture" />
             <children>
-                <primitiveref id="EvenCylinder"/>
+                <primitiveref id="demoEvenCylinder"/>
             </children>
         </component>
 
@@ -568,11 +567,11 @@
             <transformation>
             </transformation>
             <materials>
-                <material id="white2"/>
+                <material id = "white2"/>
             </materials>
-            <texture id="vidral" />
+            <texture id="demoTexture" />
             <children>
-                <primitiveref id="Triangle"/>
+                <primitiveref id="demoTriangle"/>
             </children>
         </component>
 
@@ -583,7 +582,7 @@
             <materials>
                 <material id = "orange"/>
             </materials>
-            <texture id="space" length_s="0.3" length_t="0.3" />
+            <texture id="space" />
             <children>
                 <componentref id="Wall1"/>
                 <componentref id="Wall2"/>
@@ -599,81 +598,76 @@
                 <translate x="0" y="0" z="-1" />
             </transformation>
             <materials>
-                <material id="inherit"/>
+                <material id = "orange"/>
             </materials>
             <texture id="inherit" />
             <children>
-                <primitiveref id="Square"/>
+                <primitiveref id="demoSquare"/>
             </children>
         </component>
-
         <component id="Wall2" >
             <transformation>
                 <rotate axis="y" angle="90" />
                 <translate x="0" y="0" z="-1" />
             </transformation>
             <materials>
-                <material id="inherit"/>
+                <material id = "orange"/>
             </materials>
             <texture id="inherit" />
             <children>
-                <primitiveref id="Square"/>
+                <primitiveref id="demoSquare"/>
             </children>
         </component> 
-
         <component id="Wall3" >
             <transformation>
                 <rotate axis="y" angle="180" />
                 <translate x="0" y="0" z="-1" />
             </transformation>
             <materials>
-                <material id="inherit"/>
+                <material id = "orange"/>
             </materials>
             <texture id="inherit" />
             <children>
-                <primitiveref id="Square"/>
+                <primitiveref id="demoSquare"/>
             </children>
         </component>
-
         <component id="Wall4" >
             <transformation>
                 <rotate axis="y" angle="-90" />
                 <translate x="0" y="0" z="-1" />
             </transformation>
             <materials>
-                <material id="inherit"/>
+                <material id = "orange"/>
             </materials>
             <texture id="inherit" />
             <children>
-                <primitiveref id="Square"/>
+                <primitiveref id="demoSquare"/>
             </children>
         </component>
-
         <component id="Ceiling" >
             <transformation>
                 <rotate axis="x" angle="90" />
                 <translate x="0" y="0" z="-1" />
             </transformation>
             <materials>
-                <material id="inherit"/>
+                <material id = "orange"/>
             </materials>
             <texture id="inherit" />
             <children>
-                <primitiveref id="Square"/>
+                <primitiveref id="demoSquare"/>
             </children>
         </component>
-
         <component id="Floor_b" >
             <transformation>
                 <rotate axis="x" angle="-90" />
                 <translate x="0" y="0" z="-1" />
             </transformation>
             <materials>
-                <material id="inherit"/>
+                <material id = "orange"/>
             </materials>
             <texture id="inherit" />
             <children>
-                <primitiveref id="Square"/>
+                <primitiveref id="demoSquare"/>
             </children>
         </component>         
     </components>
