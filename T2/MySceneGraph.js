@@ -8,8 +8,9 @@ var LIGHTS_INDEX = 3;
 var TEXTURES_INDEX = 4;
 var MATERIALS_INDEX = 5;
 var TRANSFORMATIONS_INDEX = 6;
-var PRIMITIVES_INDEX = 7;
-var COMPONENTS_INDEX = 8;
+var ANIMATIONS_INDEX = 7;
+var PRIMITIVES_INDEX = 8;
+var COMPONENTS_INDEX = 9;
 
 /**
  * MySceneGraph class, representing the scene graph.
@@ -168,6 +169,18 @@ class MySceneGraph {
 
             //Parse transformations block
             if ((error = this.parseTransformations(nodes[index])) != null)
+                return error;
+        }
+
+        // <animations>
+        if ((index = nodeNames.indexOf("animations")) == -1)
+            return "tag <animations> missing";
+        else {
+            if (index != ANIMATIONS_INDEX)
+                this.onXMLMinorError("tag <animations> out of order");
+
+            //Parse primitives block
+            if ((error = this.parseAnimations(nodes[index])) != null)
                 return error;
         }
 
@@ -686,22 +699,18 @@ class MySceneGraph {
         return null;
     }
 
-    /**
-     * 
+    /*
      * @param {animations block element} animationsNode 
      */
     parseAnimations(animationsNode){
 
         var children = animationsNode.children;
-
         this.animations = [];
-        // this.keyframes = [];
 
         // any number of animations
         for(var i = 0; i < children.length; i++){
 
-            this.keyframes = [];
-
+            this.kf = [];
             if (children[i].nodeName != "animation") {
                 this.onXMLMinorError("unknown tag <" + children[i].nodeName + ">");
                 continue;
@@ -716,7 +725,7 @@ class MySceneGraph {
             if (this.animations[animationID] != null)
                 return "ID must be unique for each primitive (conflict: ID = " + animationID + ")";
 
-            grandChildren = children[i].children;
+            var grandChildren = children[i].children;
 
             // any number of keyframes
             for(var j = 0; j < grandChildren.length; j++){
@@ -727,12 +736,12 @@ class MySceneGraph {
                 }
 
                 // Get instant of the current keyframe
-                var keyframeInstant = this.reader.getString(grandChildren[j], 'instant');
+                var keyframeInstant = this.reader.getFloat(grandChildren[j], 'instant');
                 if (keyframeInstant == null)
                     return "no instant defined for keyframe";
 
                 // has the transformations on the keyframe
-                grandgrandChildren = grandChildren[j].children;
+                var grandgrandChildren = grandChildren[j].children;
 
                 if(grandgrandChildren.length != 3 || (
                     grandgrandChildren[0].nodeName != 'translate' &&
@@ -742,7 +751,8 @@ class MySceneGraph {
                     return "There must be exactly 3 transformations in each keyframe (translate, rotate and scale)"
                 }
 
-                if(grandgrandChildren[0] == 'translate'){
+                var trans = [];
+                if(grandgrandChildren[0].nodeName == 'translate'){
                     //x
                     var x = this.reader.getFloat(grandgrandChildren[0], 'x');
                     if (!(x != null && !isNaN(x)))
@@ -755,9 +765,14 @@ class MySceneGraph {
                     var z = this.reader.getFloat(grandgrandChildren[0], 'z');
                     if (!(z != null && !isNaN(z)))
                         return "unable to parse z of the translation of keyframe in instant = " + keyframeInstant;
-                
+                    
+                    trans.push(x);
+                    trans.push(y);
+                    trans.push(z);
                 }
-                if(grandgrandChildren[1] == 'rotate'){
+
+                var rot = [];
+                if(grandgrandChildren[1].nodeName == 'rotate'){
                     //angle_x
                     var angle_x = this.reader.getFloat(grandgrandChildren[1], 'angle_x');
                     if (!(angle_x != null && !isNaN(angle_x)))
@@ -770,9 +785,14 @@ class MySceneGraph {
                     var angle_z = this.reader.getFloat(grandgrandChildren[1], 'angle_z');
                     if (!(angle_z != null && !isNaN(angle_z)))
                         return "unable to parse angle_z of the rotation of keyframe in instant = " + keyframeInstant;
-                
+
+                    rot.push(angle_x);
+                    rot.push(angle_y);
+                    rot.push(angle_z);
                 }
-                if(grandgrandChildren[2] == 'scale'){
+
+                var sca = [];
+                if(grandgrandChildren[2].nodeName == 'scale'){
                     //x
                     var x = this.reader.getFloat(grandgrandChildren[2], 'x');
                     if (!(x != null && !isNaN(x)))
@@ -786,16 +806,22 @@ class MySceneGraph {
                     if (!(z != null && !isNaN(z)))
                         return "unable to parse z of the scaling of keyframe in instant = " + keyframeInstant;
                 
+                    sca.push(x);
+                    sca.push(y);
+                    sca.push(z);
                 }
 
-                // TO DO - criar novo elemento da classe keyFrameAnimation e adiciona-lo ao vetor keyframes 
-
+                // TO DO - criar novo elemento da classe keyFrameAnimation e adiciona-lo ao vetor keyframes
+                var kfa = new MyKeyFrame(this.scene, keyframeInstant, trans, rot, sca);
+                this.kf.push(kfa);
             }
-
             // TO DO - criar novo elemento da classe Animation com o vetor keyframes criado no segundo ciclo
-            // TO DO - adicionar esse elemento ao vetor animations
-        }
+            var anim = new MyKeyFrameAnimation(this.scene, animationID);
+            anim.keyFrames = this.kf;
 
+            // TO DO - adicionar esse elemento ao vetor animations
+            this.animations[animationID] = anim;
+        }
     }
 
     /**
@@ -1020,6 +1046,7 @@ class MySceneGraph {
             }
 
             var transformationIndex = nodeNames.indexOf("transformation");
+            var animationsIndex = nodeNames.indexOf("animationref");
             var materialsIndex = nodeNames.indexOf("materials");
             var textureIndex = nodeNames.indexOf("texture");
             var childrenIndex = nodeNames.indexOf("children");
@@ -1074,6 +1101,9 @@ class MySceneGraph {
                     }  
                 }
             }
+
+            //Animations
+            var animationID = this.reader.getString(grandChildren[animationsIndex], 'id');
         
             // Materials
             var materials = [];
@@ -1159,7 +1189,7 @@ class MySceneGraph {
             // Creates new component with all attributes parsed
             this.components[componentID] = new MyComponent(this.scene, componentID, materials, texID, l_s, l_t, prim, comp);
             this.components[componentID].transformations = transfMatrix;
-
+            this.components[componentID].animation = animationID;
         }
 
         this.log("Parsed components");
@@ -1338,6 +1368,10 @@ class MySceneGraph {
 
                 this.scene.pushMatrix();
                 this.scene.multMatrix(vertex.transformations);
+                if(vertex.animation != null){
+                    this.animations[vertex.animation].apply();
+                }
+                //vertex.animation.apply();
                 this.processNodes(newNode, ft, mat, length_s, length_t);
                 this.scene.popMatrix();
             }
