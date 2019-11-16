@@ -1104,6 +1104,7 @@ class MySceneGraph {
 
             //Animations
             var animationID = this.reader.getString(grandChildren[animationsIndex], 'id');
+
         
             // Materials
             var materials = [];
@@ -1326,6 +1327,11 @@ class MySceneGraph {
                 this.scene.pushMatrix();
                 this.scene.multMatrix(vertex.transformations);
 
+                // animation
+                if(vertex.animation != null){
+                    this.animations[vertex.animation].apply();
+                }
+
                 // Checks inheritance in the material and apply the inherited one
                 if(vertex.materials.length != 0){
                     if(materialID == "inherit") {
@@ -1368,10 +1374,15 @@ class MySceneGraph {
 
                 this.scene.pushMatrix();
                 this.scene.multMatrix(vertex.transformations);
-                if(vertex.animation != null){
-                    this.animations[vertex.animation].apply();
+                //animation
+                /*
+                if(this.components[vertex.components[i]].animation != null){
+                    
+                    this.animations[this.components[vertex.components[i]].animation].apply();
+                    
                 }
-                //vertex.animation.apply();
+                */
+                
                 this.processNodes(newNode, ft, mat, length_s, length_t);
                 this.scene.popMatrix();
             }
