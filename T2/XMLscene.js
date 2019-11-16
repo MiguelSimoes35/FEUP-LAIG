@@ -42,8 +42,8 @@ class XMLscene extends CGFscene {
         
         this.lightIDs = new Object();
 
-        this.lastT = 0;
-        this.currentT = 0;
+        //this.lastT = 0;
+        //this.currentT = 0;
     }
 
     /**
@@ -138,7 +138,8 @@ class XMLscene extends CGFscene {
     }
 
     update(t) {
-        this.deltaT = t - this.lastT;
+        this.lastT = this.lastT || 0;
+        this.deltaT = t - this.lastT || 0;
         this.deltaT /= 1000;
         this.currentT += this.deltaT;
         for(var key in this.graph.animations) {
