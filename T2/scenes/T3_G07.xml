@@ -226,6 +226,9 @@
         <primitive id="Square">
             <rectangle x1="-1" y1="-1" x2="1" y2="1" />
         </primitive>
+        <primitive id="Plane">
+            <plane npartsU="10" npartsV="10" />
+        </primitive>
     </primitives>
 
     <components>
