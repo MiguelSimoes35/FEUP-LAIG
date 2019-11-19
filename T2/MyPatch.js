@@ -53,9 +53,4 @@ class MyPatch extends CGFobject{
             this.scene.popMatrix();
         }
     }
-
-    updateBuffers(complexity){
-
-    }
-
 }
