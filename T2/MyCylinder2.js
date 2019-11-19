@@ -3,7 +3,7 @@
 * @constructor
 */
 
-class MyPatch extends CGFobject{
+class MyCylinder2 extends CGFobject{
 
     constructor(scene, base, top, height, slices, stacks){
         super(scene);

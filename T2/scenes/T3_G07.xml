@@ -187,7 +187,6 @@
         </animation>
 
         <animation id="scale">
-            
             <keyframe instant="10.0">
                 <translate x="0" y="0" z="0" />
                 <rotate angle_x="0" angle_y="0" angle_z="0" />
@@ -202,8 +201,8 @@
     </animations>
 
     <primitives>
-        <primitive id="Rectangle">
-            <rectangle x1="-0.5" y1="-1" x2="0.5" y2="1" />
+        <primitive id="Board">
+            <plane npartsU="20" npartsV="20" />
         </primitive>
         <primitive id="Triangle">
             <triangle x1="0" x2="0" x3="0" y1="5" y2="8" y3="5" z1="-2" z2="0" z3="2"/>
@@ -319,14 +318,14 @@
         <component id="Floor" >
             <transformation>
                 <rotate axis="x" angle = "-90"/>
-                <scale x="13" y="7" z = "1"/>
+                <scale x="3.5" y="3.5" z = "1"/>
             </transformation>
             <materials>
                 <material id = "white"/>
             </materials>
             <texture id="inherit"/>
             <children>
-                <primitiveref id="Rectangle"/>
+                <primitiveref id="Board"/>
             </children>
         </component>
 

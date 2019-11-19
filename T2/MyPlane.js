@@ -17,19 +17,16 @@ class MyPlane extends CGFobject{
     }
 
     makeSurface(){
-
         var cVertexes = [
-            [[-2.0, -2.0, 0.0, 1],[-2.0, 2.0, 0.0, 1]]
-                ,[[2.0, -2.0, 0.0, 1],[2.0, 2.0, 0.0, 1]]
+            [[-2.0, -2.0, 0.0, 1],[-2.0, 2.0, 0.0, 1]],
+            [[2.0, -2.0, 0.0, 1],[2.0, 2.0, 0.0, 1]]
         ];
-
 
         var nurbsSurface = new CGFnurbsSurface(1, 1, cVertexes);
 
         var plane = new CGFnurbsObject(this.scene, this.npartsU, this.npartsV, nurbsSurface); // must provide an object with the function getPoint(u, v) (CGFnurbsSurface has it)
 
         this.surface.push(plane);
-
     }
 
     display(){
@@ -39,10 +36,4 @@ class MyPlane extends CGFobject{
             this.scene.popMatrix();
         }
     }
-
-    // missing this
-    updateBuffers(complexity){
-        
-    }
-
 }
