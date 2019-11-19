@@ -228,7 +228,7 @@
         <primitive id="Plane">
             <plane npartsU="10" npartsV="10" />
         </primitive>
-        <primitive id="teste_patch">
+        <primitive id="Flag">
             <patch npointsU="3" npointsV="4" npartsU="15" npartsV = "15">
                 <controlpoint xx="-2.0" yy="-2.0" zz="1.0"/>
                 <controlpoint xx="-2.0" yy="-1.0" zz="-2.0"/>
@@ -636,7 +636,7 @@
             </materials>
             <texture id="vidral" />
             <children>
-                <primitiveref id="teste_patch"/>
+                <primitiveref id="Flag"/>
             </children>
         </component>
 
