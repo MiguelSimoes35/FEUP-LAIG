@@ -246,6 +246,9 @@
                 <controlpoint xx="-2.0" yy="2.0" zz="1.0"/>
             </patch>
         </primitive>
+        <primitive id="Cylinder2">
+            <cylinder2 base="2" top="0" height="10" slices="10" stacks="10" />
+        </primitive>
     </primitives>
 
     <components>
@@ -258,6 +261,8 @@
             <texture id="chess" />
             <children>
                 <componentref id = "Floor"/>
+
+                <componentref id="test"/>
 
                 <componentref id = "Team1_Piece1"/>
                 <componentref id = "Team1_Piece2"/>
@@ -279,6 +284,18 @@
 
                 <componentref id = "Sign"/>
                 <componentref id = "Box" />
+            </children>
+        </component>
+
+        <component id="test">
+            <transformation>
+            </transformation>
+            <materials>
+                <material id = "red"/>
+            </materials>
+            <texture id = "none"/>
+            <children>
+                <primitiveref id="Cylinder2"/>
             </children>
         </component>
 
@@ -336,7 +353,7 @@
         <component id="Floor" >
             <transformation>
                 <rotate axis="x" angle = "-90"/>
-                <scale x="3.5" y="3.5" z = "1"/>
+                <scale x="15" y="15" z = "1"/>
             </transformation>
             <materials>
                 <material id = "white"/>
