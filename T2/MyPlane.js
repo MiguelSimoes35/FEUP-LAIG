@@ -24,7 +24,7 @@ class MyPlane extends CGFobject{
 
         var nurbsSurface = new CGFnurbsSurface(1, 1, cVertexes);
 
-        var plane = new CGFnurbsObject(this.scene, this.npartsU, this.npartsV, nurbsSurface); // must provide an object with the function getPoint(u, v) (CGFnurbsSurface has it)
+        var plane = new CGFnurbsObject(this.scene, this.npartsU, this.npartsV, nurbsSurface);
 
         this.surface.push(plane);
     }

@@ -228,6 +228,24 @@
         <primitive id="Plane">
             <plane npartsU="10" npartsV="10" />
         </primitive>
+        <primitive id="teste_patch">
+            <patch npointsU="3" npointsV="4" npartsU="15" npartsV = "15">
+                <controlpoint xx="-2.0" yy="-2.0" zz="1.0"/>
+                <controlpoint xx="-2.0" yy="-1.0" zz="-2.0"/>
+                <controlpoint xx="-2.0" yy="1.0" zz="5.0"/>
+                <controlpoint xx="-2.0" yy="2.0" zz="-1.0"/>
+
+                <controlpoint xx="0.0" yy="-2.0" zz="0.0"/>
+                <controlpoint xx="0.0" yy="-1.0" zz="-1.0"/>
+                <controlpoint xx="0.0" yy="1.0" zz="1.5"/>
+                <controlpoint xx="0.0" yy="2.0" zz="0.0"/>
+
+                <controlpoint xx="2.0" yy="-2.0" zz="-1.0"/>
+                <controlpoint xx="2.0" yy="-1.0" zz="2.0"/>
+                <controlpoint xx="2.0" yy="1.0" zz="-5.0"/>
+                <controlpoint xx="-2.0" yy="2.0" zz="1.0"/>
+            </patch>
+        </primitive>
     </primitives>
 
     <components>
@@ -611,13 +629,14 @@
 
         <component id="Plate" >
             <transformation>
+                <translate x="0" y="5" z="0"/>
             </transformation>
             <materials>
                 <material id="white2"/>
             </materials>
             <texture id="vidral" />
             <children>
-                <primitiveref id="Triangle"/>
+                <primitiveref id="teste_patch"/>
             </children>
         </component>
 

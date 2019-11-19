@@ -22,11 +22,36 @@ class MyPatch extends CGFobject{
     }
 
     makeSurface(){
+        var cVertexes = [];
 
+        for(var i = 0; i < this.cPoints.length; i++) {
+            this.cPoints[i].push(1);
+        }
+
+        var counter = 0;
+
+        for(var j = 0; j < this.npointsU; j++) {
+            var uVector = [];
+            for(var k = 0; k < this.npointsV; k++) {
+                uVector.push(this.cPoints[counter]);
+                counter++;
+            }
+            cVertexes.push(uVector);
+        }
+
+        var nurbsSurface = new CGFnurbsSurface(this.npointsU - 1, this.npointsV - 1, cVertexes);
+
+        var patch = new CGFnurbsObject(this.scene, this.npartsU, this.npartsV, nurbsSurface);
+
+        this.surface.push(patch);
     }
 
     display(){
-
+        for (var i = 0; i < this.surface.length; i++) {
+            this.scene.pushMatrix();
+            this.surface[i].display();
+            this.scene.popMatrix();
+        }
     }
 
     updateBuffers(complexity){

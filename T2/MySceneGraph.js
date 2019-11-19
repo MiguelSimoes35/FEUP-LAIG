@@ -1017,6 +1017,9 @@ class MySceneGraph {
             }
             //Patch
             else if(primitiveType == 'patch'){
+                var cPoints = [];
+                var grandgrandChildren = grandChildren[0].children;
+
                 //npointsU
                 var npointsU = this.reader.getFloat(grandChildren[0], 'npointsU');
                 if (!(npointsU != null && !isNaN(npointsU)))
@@ -1034,9 +1037,27 @@ class MySceneGraph {
                 if (!(npartsV != null && !isNaN(npartsV)))
                     return "unable to parse npartsV of the primitive coordinates for ID = " + primitiveId;
                 // cPoints
-                var cPoints = this.reader.getFloat(grandChildren[0], 'cPoints');
-                if (!(cPoints != null && !isNaN(cPoints)))
-                    return "unable to parse cPoints of the primitive coordinates for ID = " + primitiveId;
+                for(var j = 0; j < grandgrandChildren.length; j++) {
+                    var cPoint = [];
+                    //xx
+                    var xx = this.reader.getFloat(grandgrandChildren[j], 'xx');
+                    if (!(xx != null && !isNaN(xx)))
+                        return "unable to parse xx of the primitive coordinates for ID = " + primitiveId;
+                    //yy
+                    var yy = this.reader.getFloat(grandgrandChildren[j], 'yy');
+                    if (!(yy != null && !isNaN(yy)))
+                        return "unable to parse yy of the primitive coordinates for ID = " + primitiveId;
+                    //zz
+                    var zz = this.reader.getFloat(grandgrandChildren[j], 'zz');
+                    if (!(zz != null && !isNaN(zz)))
+                        return "unable to parse zz of the primitive coordinates for ID = " + primitiveId;
+
+                    cPoint.push(xx);
+                    cPoint.push(yy);
+                    cPoint.push(zz);
+
+                    cPoints.push(cPoint);
+                }
 
                 var patch = new MyPatch(this.scene, npointsU, npointsV, npartsU, npartsV, cPoints);
                 this.primitives[primitiveId] = patch;
