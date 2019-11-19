@@ -1,7 +1,5 @@
 
-class NurbsScene extends CGFscene
-{
-
+class NurbsScene extends CGFscene {
 	constructor() {
 		super();
 		this.texture = null;
@@ -23,7 +21,7 @@ class NurbsScene extends CGFscene
 		this.gl.enable(this.gl.CULL_FACE);
 		this.gl.depthFunc(this.gl.LEQUAL);
 		
-		this.axis=new CGFaxis(this);
+		this.axis = new CGFaxis(this);
 		this.enableTextures(true);
 	   
 
@@ -164,8 +162,7 @@ class NurbsScene extends CGFscene
 		this.setShininess(10.0);	
 	};
 
-	display() 
-	{
+	display() {
 		// Clear image and depth buffer every time we update the scene
 		this.gl.viewport(0, 0, this.gl.canvas.width, this.gl.canvas.height);
 		this.gl.clear(this.gl.COLOR_BUFFER_BIT | this.gl.DEPTH_BUFFER_BIT);
