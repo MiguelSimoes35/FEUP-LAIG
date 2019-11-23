@@ -42,15 +42,16 @@ class XMLscene extends CGFscene {
         
         this.lightIDs = new Object();
 
-        //this.lastT = 0;
-        //this.currentT = 0;
+        this.rttTexture = new CGFtextureRTT(this, this.gl.canvas.width, this.gl.canvas.height);
+        this.secCamera = new MySecurityCamera(this);
     }
-
+    
     /**
      * Initializes the scene cameras.
      */
     initCameras() {
-        this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(15, 15, 15), vec3.fromValues(0, 0, 0));
+        this.camera1 = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(50, 75, 50), vec3.fromValues(0, 0, 0));
+        this.fixedcamera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(45, 45, 0), vec3.fromValues(0, 0, 0));
     }
     /**
      * Initializes the scene lights with the values read from the XML file.
@@ -101,13 +102,13 @@ class XMLscene extends CGFscene {
 
         //this.selectedCamera = this.graph.defaultId;
         this.selectedView = this.cameraIDs[0];
-        this.changeCamera();
+        //this.changeCamera();
     }
 
     changeCamera() {
 
         // this creates a camera with the selectedView
-        this.camera = this.graph.views[this.selectedView];
+        this.camera1 = this.graph.views[this.selectedView];
         // this enables the camera movement
         this.interface.setActiveCamera(this.camera);
     }
@@ -123,17 +124,11 @@ class XMLscene extends CGFscene {
      */
     onGraphLoaded() {
         this.axis = new CGFaxis(this, this.graph.referenceLength);
-
         this.gl.clearColor(this.graph.background[0], this.graph.background[1], this.graph.background[2], this.graph.background[3]);
-
         this.setGlobalAmbientLight(this.graph.ambient[0], this.graph.ambient[1], this.graph.ambient[2], this.graph.ambient[3]);
-
         this.initMyCameras();
-
         this.initLights();
-
         this.interface.initMyInterface();
-
         this.sceneInited = true;
     }
 
@@ -151,9 +146,11 @@ class XMLscene extends CGFscene {
     /**
      * Displays the scene.
      */
-    display() {
+    render(cam) {
+        this.camera = cam
         // ---- BEGIN Background, camera and axis setup
-
+        
+        this.interface.setActiveCamera(this.camera);
         // Clear image and depth buffer everytime we update the scene
         this.gl.viewport(0, 0, this.gl.canvas.width, this.gl.canvas.height);
         this.gl.clear(this.gl.COLOR_BUFFER_BIT | this.gl.DEPTH_BUFFER_BIT);
@@ -191,5 +188,16 @@ class XMLscene extends CGFscene {
 
         this.popMatrix();
         // ---- END Background, camera and axis setup
+    }
+
+    display() {
+        this.rttTexture.attachToFrameBuffer();
+        this.render(this.fixedcamera);
+        this.rttTexture.detachFromFrameBuffer();
+        this.render(this.camera1);
+
+        this.gl.disable(this.gl.DEPTH_TEST);
+        this.secCamera.display();
+        this.gl.enable(this.gl.DEPTH_TEST);
     }
 }

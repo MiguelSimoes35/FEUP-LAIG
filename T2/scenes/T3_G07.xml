@@ -229,25 +229,20 @@
             <plane npartsU="10" npartsV="10" />
         </primitive>
         <primitive id="Flag">
-            <patch npointsU="3" npointsV="4" npartsU="15" npartsV = "15">
-                <controlpoint xx="-2.0" yy="-2.0" zz="1.0"/>
-                <controlpoint xx="-2.0" yy="-1.0" zz="-2.0"/>
-                <controlpoint xx="-2.0" yy="1.0" zz="5.0"/>
-                <controlpoint xx="-2.0" yy="2.0" zz="-1.0"/>
+            <patch npointsU="2" npointsV="4" npartsU="15" npartsV = "15">
+                <controlpoint xx="-1.0" yy="0.0" zz="-2.0"/>
+                <controlpoint xx="-0.5" yy="0.0" zz="2.0"/>
+                <controlpoint xx="0.5" yy="0.0" zz="-2.0"/>
+                <controlpoint xx="1.0" yy="0.0" zz="2.0"/>
 
-                <controlpoint xx="0.0" yy="-2.0" zz="0.0"/>
-                <controlpoint xx="0.0" yy="-1.0" zz="-1.0"/>
-                <controlpoint xx="0.0" yy="1.0" zz="1.5"/>
-                <controlpoint xx="0.0" yy="2.0" zz="0.0"/>
-
-                <controlpoint xx="2.0" yy="-2.0" zz="-1.0"/>
-                <controlpoint xx="2.0" yy="-1.0" zz="2.0"/>
-                <controlpoint xx="2.0" yy="1.0" zz="-5.0"/>
-                <controlpoint xx="-2.0" yy="2.0" zz="1.0"/>
+                <controlpoint xx="-1.0" yy="3.0" zz="-2.0"/>
+                <controlpoint xx="-0.5" yy="3.0" zz="2.0"/>
+                <controlpoint xx="0.5" yy="3.0" zz="-2.0"/>
+                <controlpoint xx="1.0" yy="3.0" zz="2.0"/>
             </patch>
         </primitive>
         <primitive id="Cylinder2">
-            <cylinder2 base="2" top="0" height="10" slices="10" stacks="10" />
+            <cylinder2 base="2" top="0" height="5" slices="10" stacks="10" />
         </primitive>
     </primitives>
 
@@ -261,8 +256,6 @@
             <texture id="chess" />
             <children>
                 <componentref id = "Floor"/>
-
-                <componentref id="test"/>
 
                 <componentref id = "Team1_Piece1"/>
                 <componentref id = "Team1_Piece2"/>
@@ -287,17 +280,7 @@
             </children>
         </component>
 
-        <component id="test">
-            <transformation>
-            </transformation>
-            <materials>
-                <material id = "red"/>
-            </materials>
-            <texture id = "none"/>
-            <children>
-                <primitiveref id="Cylinder2"/>
-            </children>
-        </component>
+        
 
         <component id="t_torus" >
             <transformation>
@@ -334,7 +317,7 @@
             </materials>
             <texture id = "none"/>
             <children>
-                <primitiveref id="Cone"/>
+                <primitiveref id="Cylinder2"/>
             </children>
         </component>
         <component id="t_cone_down" >
@@ -346,7 +329,7 @@
             </materials>
             <texture id = "none"/>
             <children>
-                <primitiveref id="Cone"/>
+                <primitiveref id="Cylinder2"/>
             </children>
         </component>
 
@@ -638,7 +621,7 @@
             <materials>
                 <material id="white2"/>
             </materials>
-            <texture id="vidral" />
+            <texture id="none" />
             <children>
                 <primitiveref id="EvenCylinder"/>
             </children>
@@ -646,7 +629,7 @@
 
         <component id="Plate" >
             <transformation>
-                <translate x="0" y="5" z="0"/>
+                <translate x="1" y="5" z="1.5"/>
             </transformation>
             <materials>
                 <material id="white2"/>
