@@ -136,7 +136,6 @@ class XMLscene extends CGFscene {
     }
 
     update(t) {
-        
         this.lastT = this.lastT;
         this.deltaT = t - this.lastT;
         this.deltaT /= 1000;
@@ -147,7 +146,6 @@ class XMLscene extends CGFscene {
         this.lastT = t;
         var shaderTime = t / 10000 % 100;
         this.secCamera.update(shaderTime);
-        
     }
 
     /**

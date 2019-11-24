@@ -16,8 +16,8 @@ float height = 10.0;
 float speedConstant = 20.0;
 
 void main() {
+	
 	centerDistance = distance(vTextureCoord.xy, vec2(0.5, 0.5));
-
 	float alpha = abs(cos((vTextureCoord.y * linesConstant) + time * speedConstant) * height);
 
 	vec4 radialGradient = vec4(abs(maxColor.r - centerDistance), 

@@ -746,9 +746,8 @@ class MySceneGraph {
                 if(grandgrandChildren.length != 3 || (
                     grandgrandChildren[0].nodeName != 'translate' &&
                         grandgrandChildren[1].nodeName != 'rotate' &&
-                            grandgrandChildren[2].nodeName != 'scale'
-                )){
-                    return "There must be exactly 3 transformations in each keyframe (translate, rotate and scale)"
+                            grandgrandChildren[2].nodeName != 'scale')){
+                    return "There must be exactly 3 transformations in each keyframe (translate, rotate and scale)";
                 }
 
                 var trans = [];
@@ -810,16 +809,12 @@ class MySceneGraph {
                     sca.push(y);
                     sca.push(z);
                 }
-
-                // TO DO - criar novo elemento da classe keyFrameAnimation e adiciona-lo ao vetor keyframes
                 var kfa = new MyKeyFrame(this.scene, keyframeInstant, trans, rot, sca);
                 this.kf.push(kfa);
             }
-            // TO DO - criar novo elemento da classe Animation com o vetor keyframes criado no segundo ciclo
             var anim = new MyKeyFrameAnimation(this.scene, animationID);
             anim.keyFrames = this.kf;
 
-            // TO DO - adicionar esse elemento ao vetor animations
             this.animations[animationID] = anim;
         }
     }

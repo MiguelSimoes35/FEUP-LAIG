@@ -1,18 +1,18 @@
 /**
-* MyPlane
-* @constructor
-*/
+ * MyPlane
+ * @constructor
+ * @param scene
+ * @param npartsU
+ * @param npartsV
+ */
 
 class MyPlane extends CGFobject{
-
     constructor(scene, npartsU, npartsV){
         super(scene);
-        
         this.npartsU = npartsU;
         this.npartsV = npartsV;
 
         this.surface = [];
-
         this.makeSurface();
     }
 

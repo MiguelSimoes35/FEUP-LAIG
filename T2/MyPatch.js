@@ -1,34 +1,34 @@
 /**
-* MyPatch
-* @constructor
-*/
+ * MyPatch 
+ * @constructor
+ * @param scene
+ * @param npointsU
+ * @param npointsV
+ * @param npartsU
+ * @param npartsV
+ * @param cPoints
+ */
 
 class MyPatch extends CGFobject{
-
     constructor(scene, npointsU, npointsV, npartsU, npartsV, cPoints){
         super(scene);
-
         this.npointsU = npointsU;
         this.npointsV = npointsV;
-
         this.npartsU = npartsU;
         this.npartsV = npartsV;
-
         this.cPoints = cPoints;
 
         this.surface = [];
-        
         this.makeSurface();
     }
 
     makeSurface(){
         var cVertexes = [];
+        var counter = 0;
 
         for(var i = 0; i < this.cPoints.length; i++) {
             this.cPoints[i].push(1);
         }
-
-        var counter = 0;
 
         for(var j = 0; j < this.npointsU; j++) {
             var uVector = [];

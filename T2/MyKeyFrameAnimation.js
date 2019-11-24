@@ -1,9 +1,7 @@
 /**
  * MyKeyFrameAnimation
- * @param instant
- * @param translate
- * @param rotate
- * @param scale
+ * @param scene
+ * @param id
  */
 
 class MyKeyFrameAnimation extends MyAnimation {
@@ -17,14 +15,10 @@ class MyKeyFrameAnimation extends MyAnimation {
         this.flag = true;
         
         this.aniMatrix = mat4.create();
-
     }
 
     update(t) {
-
         if(this.segment <= this.keyFrames.length - 1){
-            
-
             //calculate ratio of animation
             if(this.segment == 0) {
                 this.ratio = 1 - ((this.keyFrames[this.segment].instant - this.time) / 
@@ -39,24 +33,20 @@ class MyKeyFrameAnimation extends MyAnimation {
             if(this.keyFrames[this.segment].instant < this.time) {
                 this.segment++;
             }
-
         }
-        else{
+        else {
             this.flag = false;
         }
-
         this.time += t;
     }
 
     apply() {
-        
         //create matrix to apply
-        
         if(this.flag && this.segment <= this.keyFrames.length - 1){
-            
             // vector translations
-            var current_trans = [this.keyFrames[this.segment].translate[0] * this.ratio / 100, this.keyFrames[this.segment].translate[1] * this.ratio / 100, this.keyFrames[this.segment].translate[2] * this.ratio / 100];
-
+            var current_trans = [this.keyFrames[this.segment].translate[0] * this.ratio / 100, 
+                                    this.keyFrames[this.segment].translate[1] * this.ratio / 100, 
+                                    this.keyFrames[this.segment].translate[2] * this.ratio / 100];
 
             // vector scaling
             var scaleX;
@@ -94,7 +84,6 @@ class MyKeyFrameAnimation extends MyAnimation {
             var current_sca = [(scaleX),
                                  (scaleY),
                                   (scaleZ)];
-            
 
             // apply translation
             this.aniMatrix = mat4.translate(this.aniMatrix, this.aniMatrix, current_trans);
@@ -107,14 +96,12 @@ class MyKeyFrameAnimation extends MyAnimation {
             // apply scaling
             this.aniMatrix = mat4.scale(this.aniMatrix, this.aniMatrix, current_sca);
 
-
             this.scene.multMatrix(this.aniMatrix);
         }
+
         else{
             var current_sca = [1, 1, 1];
             this.scene.multMatrix(this.aniMatrix);
         }  
-
     }
-
 }

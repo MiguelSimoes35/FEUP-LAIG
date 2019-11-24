@@ -10,25 +10,20 @@
 */
 
 class MyCylinder2 extends CGFobject{
-
     constructor(scene, base, top, height, slices, stacks){
         super(scene);
 
         this.base = base;
         this.top = top;
-
         this.height = height;
-
         this.slices = slices;
         this.stacks = stacks;
 
         this.surface = [];
-        
         this.makeSurface();
     }
 
     makeSurface(){
-
         var h_top = (this.top * 4) / 3;
         var h_base = (this.base * 4) / 3;
 
@@ -44,7 +39,6 @@ class MyCylinder2 extends CGFobject{
         var plane = new CGFnurbsObject(this.scene, this.slices, this.stacks, nurbsSurface);
 
         this.surface.push(plane);
-
     }
 
     display(){
@@ -56,9 +50,4 @@ class MyCylinder2 extends CGFobject{
             this.scene.popMatrix();
         }
     }
-
-    updateBuffers(complexity){
-        
-    }
-
 }
