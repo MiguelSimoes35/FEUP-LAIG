@@ -1403,10 +1403,11 @@ class MySceneGraph {
      * @param {string} component
      * @param {string} fatherTexture
      * @param {string} fatherMaterial
+     * @param {string} fatherAnimation
      * @param {float} len_s
      * @param {float} len_t
      */
-    processNodes(component, fatherTexture, fatherMaterial, len_s, len_t){
+    processNodes(component, fatherTexture, fatherMaterial, fatherAnimation, len_s, len_t){
 
         var vertex = this.components[component];
         if(vertex.components.length == 0){
@@ -1419,6 +1420,9 @@ class MySceneGraph {
                 // animation
                 if(vertex.animation != null || this.animations[vertex.animation] != undefined){
                     this.animations[vertex.animation].apply();
+                }
+                else if(fatherAnimation != null){
+                    this.animations[fatherAnimation].apply();
                 }
 
                 // Checks inheritance in the material and apply the inherited one
@@ -1437,6 +1441,7 @@ class MySceneGraph {
                     }
                     this.materials[materialID].setTexture(this.textures[vertex.texture]);
                 }
+                
                 this.primitives[vertex.primitives[i]].display();
                 this.scene.popMatrix();   
             }
@@ -1448,7 +1453,8 @@ class MySceneGraph {
                 var ft = vertex.texture;
                 var mat = vertex.getMaterialID(); 
                 var length_s = vertex.l_s;
-                var length_t = vertex.l_t;  
+                var length_t = vertex.l_t;
+
 
                 //References the texture which children should inherit
                 if(ft == "inherit") {
@@ -1461,10 +1467,17 @@ class MySceneGraph {
                     mat = fatherMaterial;
                 }
 
+                var fa = null;
+
+                if(vertex.animation != null || this.animations[vertex.animation] != undefined){
+                    fa = vertex.animation;
+                }
+                
+
                 this.scene.pushMatrix();
                 this.scene.multMatrix(vertex.transformations);
                 
-                this.processNodes(newNode, ft, mat, length_s, length_t);
+                this.processNodes(newNode, ft, mat, fa, length_s, length_t);
                 this.scene.popMatrix();
             }
         }

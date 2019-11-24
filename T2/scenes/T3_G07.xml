@@ -135,7 +135,7 @@
     <animations>
         <animation id="teste">
             <keyframe instant="3.0">
-                <translate x="0" y="-10" z="0" />
+                <translate x="0" y="-20" z="0" />
                 <rotate angle_x="0" angle_y="0" angle_z="0" />
                 <scale x="1.0" y="1.0" z="1.0" />
             </keyframe>
@@ -167,7 +167,7 @@
             </keyframe>
             
             <keyframe instant="8.0">
-                <translate x="0" y="-10" z="0" />
+                <translate x="0" y="-15" z="0" />
                 <rotate angle_x="0" angle_y="0" angle_z="0" />
                 <scale x="1.0" y="1.0" z="1.0" />
             </keyframe>
@@ -201,7 +201,7 @@
         <animation id="rotation">
             <keyframe instant="3.0">
                 <translate x="0" y="0" z="0" />
-                <rotate angle_x="0" angle_y="0" angle_z="90" />
+                <rotate angle_x="0" angle_y="90" angle_z="0" />
                 <scale x="1.0" y="1.0" z="1.0" />
             </keyframe>
         </animation>
@@ -258,7 +258,7 @@
         <component id="Root">
             <transformation>
             </transformation>
-            <animationref id="none"/>
+            
             <materials>
                 <material id="white" />
             </materials>
@@ -295,7 +295,7 @@
             <transformation>
                 <transformationref id="t_Torus_Transform" />
             </transformation>
-            <animationref id="none"/>
+            
             <materials>
                 <material id = "inherit"/>
             </materials>
@@ -309,7 +309,7 @@
             <transformation>
                 <transformationref id="t_Sphere_Transform" />
             </transformation>
-            <animationref id="none"/>
+            
             <materials>
                 <material id = "inherit"/>
             </materials>
@@ -323,7 +323,7 @@
             <transformation>
                 <transformationref id="t_Cone_Up_Transform" />
             </transformation>
-            <animationref id="none"/>
+            
             <materials>
                 <material id = "inherit"/>
             </materials>
@@ -336,7 +336,7 @@
             <transformation>
                 <transformationref id="t_Cone_Down_Transform" />
             </transformation>
-            <animationref id="none"/>
+            
             <materials>
                 <material id = "inherit"/>
             </materials>
@@ -351,7 +351,7 @@
                 <rotate axis="x" angle = "-90"/>
                 <scale x="15" y="15" z = "1"/>
             </transformation>
-            <animationref id="none"/>
+            
             <materials>
                 <material id = "white"/>
             </materials>
@@ -367,7 +367,7 @@
                 <scale x="0.3" y="0.3" z="0.3"/>
                 <translate x="-3" y="20.5" z="-5"/>       
             </transformation>
-            <animationref id="none"/>
+            
             <materials>
                 <material id="green"/>
             </materials>
@@ -384,7 +384,7 @@
                 <scale x="0.3" y="0.3" z="0.3"/>
                 <translate x="8" y="20.5" z="-5"/>       
             </transformation>
-            <animationref id="none"/>
+            
             <materials>
                 <material id="green"/>
             </materials>
@@ -418,7 +418,7 @@
                 <scale x="0.3" y="0.3" z="0.3"/>
                 <translate x="-13" y="20.5" z="-5"/>       
             </transformation>
-            <animationref id="none"/>
+            
             <materials>
                 <material id="green"/>
             </materials>
@@ -433,7 +433,6 @@
             <transformation>
                 <translate x="1" y="0" z="4.5" />
             </transformation>
-            <animationref id="none"/>
             <materials>
                 <material id="yellow"/>
             </materials>
@@ -448,7 +447,6 @@
             <transformation>
                 <translate x="4.2" y="0" z="4.5" />
             </transformation>
-            <animationref id="rotation"/>
             <materials>
                 <material id="yellow"/>
             </materials>
@@ -463,7 +461,7 @@
             <transformation>
                 <translate x="-2.4" y="0" z="4.5" />
             </transformation>
-            <animationref id="none"/>
+            
             <materials>
                 <material id="yellow"/>
             </materials>
@@ -478,7 +476,7 @@
             <transformation>
                 <translate x="-5.5" y="0" z="4.5" />
             </transformation>
-            <animationref id="none"/>
+            
             <materials>
                 <material id="yellow"/>
             </materials>
@@ -562,7 +560,7 @@
                 <translate x="-0.7" y="2.3" z="-4.3" />
                 <scale x="0.3" y="0.3" z="0.3" />
             </transformation>
-            <animationref id="none"/>
+            
             <materials>
                 <material id="blue"/>
             </materials>
@@ -578,7 +576,7 @@
                 <translate x="-3.9" y="2.3" z="-4.3" />
                 <scale x="0.3" y="0.3" z="0.3" />
             </transformation>
-            <animationref id="none"/>
+            
             <materials>
                 <material id="blue"/>
             </materials>
@@ -594,7 +592,7 @@
                 <translate x="2.5" y="2.3" z="-4.3" />
                 <scale x="0.3" y="0.3" z="0.3" />
             </transformation>
-            <animationref id="none"/>
+            
             <materials>
                 <material id="blue"/>
             </materials>
@@ -610,7 +608,7 @@
                 <translate x="5.8" y="2.3" z="-4.3" />
                 <scale x="0.3" y="0.3" z="0.3" />
             </transformation>
-            <animationref id="none"/>
+            
             <materials>
                 <material id="blue"/>
             </materials>
@@ -625,7 +623,7 @@
             <transformation>
                 <translate x="-8" y="0" z="0" />
             </transformation>
-            <animationref id="none"/>
+            
             <materials>
                 <material id="white"/>
             </materials>
@@ -642,7 +640,7 @@
                 <scale x="0.3" y="0.3" z="1" />
                 <translate x="0" y="0" z="-5" />
             </transformation>
-            <animationref id="none"/>
+            
             <materials>
                 <material id="white2"/>
             </materials>
@@ -656,11 +654,11 @@
             <transformation>
                 <translate x="1" y="5" z="1.5"/>
             </transformation>
-            <animationref id="none"/>
+            
             <materials>
                 <material id="white2"/>
             </materials>
-            <texture id="vidral" />
+            <texture id="trunk" />
             <children>
                 <primitiveref id="Flag"/>
             </children>
@@ -670,7 +668,7 @@
             <transformation>
                 <scale x="15" y="15" z="15" />
             </transformation>
-            <animationref id="none"/>
+            
             <materials>
                 <material id = "orange"/>
             </materials>
@@ -689,7 +687,7 @@
             <transformation>
                 <translate x="0" y="0" z="-1" />
             </transformation>
-            <animationref id="none"/>
+            
             <materials>
                 <material id="inherit"/>
             </materials>
@@ -704,7 +702,7 @@
                 <rotate axis="y" angle="90" />
                 <translate x="0" y="0" z="-1" />
             </transformation>
-            <animationref id="none"/>
+            
             <materials>
                 <material id="inherit"/>
             </materials>
@@ -719,7 +717,7 @@
                 <rotate axis="y" angle="180" />
                 <translate x="0" y="0" z="-1" />
             </transformation>
-            <animationref id="none"/>
+            
             <materials>
                 <material id="inherit"/>
             </materials>
@@ -734,7 +732,7 @@
                 <rotate axis="y" angle="-90" />
                 <translate x="0" y="0" z="-1" />
             </transformation>
-            <animationref id="none"/>
+            
             <materials>
                 <material id="inherit"/>
             </materials>
@@ -749,7 +747,7 @@
                 <rotate axis="x" angle="90" />
                 <translate x="0" y="0" z="-1" />
             </transformation>
-            <animationref id="none"/>
+            
             <materials>
                 <material id="inherit"/>
             </materials>
@@ -764,7 +762,7 @@
                 <rotate axis="x" angle="-90" />
                 <translate x="0" y="0" z="-1" />
             </transformation>
-            <animationref id="none"/>
+            
             <materials>
                 <material id="inherit"/>
             </materials>
