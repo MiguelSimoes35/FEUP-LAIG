@@ -1278,7 +1278,13 @@ class MySceneGraph {
             // Creates new component with all attributes parsed
             this.components[componentID] = new MyComponent(this.scene, componentID, materials, texID, l_s, l_t, prim, comp);
             this.components[componentID].transformations = transfMatrix;
-            this.components[componentID].animation = animationID;
+            if(animationID != "none"){
+                this.components[componentID].animation = animationID;
+            }
+            else{
+                this.components[componentID].animation = null;
+            }
+            
         }
 
         this.log("Parsed components");
@@ -1416,7 +1422,7 @@ class MySceneGraph {
                 this.scene.multMatrix(vertex.transformations);
 
                 // animation
-                if(vertex.animation != null){
+                if(vertex.animation != null || this.animations[vertex.animation] != undefined){
                     this.animations[vertex.animation].apply();
                 }
 
@@ -1462,14 +1468,6 @@ class MySceneGraph {
 
                 this.scene.pushMatrix();
                 this.scene.multMatrix(vertex.transformations);
-                //animation
-                /*
-                if(this.components[vertex.components[i]].animation != null){
-                    
-                    this.animations[this.components[vertex.components[i]].animation].apply();
-                    
-                }
-                */
                 
                 this.processNodes(newNode, ft, mat, length_s, length_t);
                 this.scene.popMatrix();
