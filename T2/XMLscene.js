@@ -141,6 +141,8 @@ class XMLscene extends CGFscene {
             this.graph.animations[key].update(this.deltaT);
         }
         this.lastT = t;
+        var shaderTime = t / 10000 % 100;
+        this.secCamera.update(shaderTime);
     }
 
     /**

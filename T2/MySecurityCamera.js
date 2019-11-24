@@ -15,6 +15,10 @@ class MySecurityCamera extends CGFobject {
         this.securityShader.setUniformsValues({v_res: this.scene.gl.canvas.heigth});
     }
 
+    update(t) {
+        this.securityShader.setUniformsValues({time : t});
+    }
+
     display() {
         this.scene.pushMatrix();
         this.scene.setActiveShader(this.securityShader);
