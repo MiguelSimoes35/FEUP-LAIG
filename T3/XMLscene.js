@@ -118,8 +118,7 @@ class XMLscene extends CGFscene {
         }
     }
 
-    initMyCameras(){
-        
+    initMyCameras() {
         for (var id in this.graph.views) {
             this.cameraIDs.push(id);
         }      

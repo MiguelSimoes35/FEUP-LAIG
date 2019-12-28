@@ -4,10 +4,9 @@
  * @param scene
  */
 
-class MyGameboard extends CGFobject{
-    constructor(scene){
+class MyGameboard extends CGFobject {
+    constructor(scene) {
         super(scene);
-
         this.scene = scene;
 
         this.board1 = [];
@@ -19,8 +18,7 @@ class MyGameboard extends CGFobject{
     }
 
     // class methods
-    init(){    
-        
+    init() {    
         this.board1 = new MySubBoard(this.scene, -3, -3);
         this.board2 = new MySubBoard(this.scene, 3, -3);
         this.board3 = new MySubBoard(this.scene, -3, 3);
@@ -54,12 +52,10 @@ class MyGameboard extends CGFobject{
     }
     
     // display
-    display(){
-        
+    display() {
         this.board1.display();
         this.board2.display();
         this.board3.display();
         this.board4.display();
-
     }
 }
