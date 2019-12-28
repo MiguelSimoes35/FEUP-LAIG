@@ -22,6 +22,7 @@ class MyComponent extends CGFobject {
         this.l_t = l_t;
 
         this.transformations;
+        this.animation;
         this.primitives = primitives;
         this.components = components;
         this.materialIndex = 0;

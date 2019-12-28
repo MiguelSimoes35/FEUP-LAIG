@@ -11,11 +11,12 @@ function getUrlVars() {
     return vars;
 }	 
 //Include additional files here
-serialInclude(['../lib/CGF.js', 'XMLscene.js', 'MySceneGraph.js', 'MyInterface.js', 'MyRectangle.js', 'MyTriangle.js', 
-'MyCylinder.js', 'MySphere.js', 'MyTorus.js', 'MyComponent.js',
+serialInclude(['../lib/CGF.js', 'XMLscene.js', 'MySceneGraph.js', 'MyInterface.js', 'primitives/MyRectangle.js', 'primitives/MyTriangle.js', 
+'primitives/MyCylinder.js', 'primitives/MySphere.js', 'primitives/MyTorus.js', 'MyComponent.js', 'MyAnimation.js', 'MyKeyFrameAnimation.js',
+'MyKeyFrame.js', 'primitives/MyPlane.js', 'primitives/MyPatch.js', 'primitives/MyCylinder2.js', 'MyTile.js', 'MyGameboard.js', 'MyPiece.js',
+'MySubBoard.js', 'MyGameOrchestrator.js',
 
-main=function()
-{
+main=function() {
 	// Standard application, scene and interface setup
     var app = new CGFapplication(document.body);
     var myInterface = new MyInterface();
