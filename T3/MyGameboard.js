@@ -26,6 +26,7 @@ class MyGameboard extends CGFobject {
 
         this.board1Pieces = [];
     }
+
     
     addPiece(piece, board, tile){
         // TO DO
@@ -47,8 +48,8 @@ class MyGameboard extends CGFobject {
         // TO DO
     }
 
-    movePiece(piece, tile){
-        // TO DO
+    movePiece(piece, tile, time){
+        //TO DO
     }
     
     // display

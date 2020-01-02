@@ -52,6 +52,14 @@ class XMLscene extends CGFscene {
         this.default.setSpecular(0.1, 0.1, 0.1, 1);
         this.default.setShininess(10.0);
 
+        // blue material
+        this.blue = new CGFappearance(this);
+        this.blue.setAmbient(0.0, 0.0, 0.0, 1);
+        this.blue.setDiffuse(0.0, 0.5, 1.0, 1);
+        this.blue.setSpecular(0.0, 0.5, 1.0, 1);
+        this.blue.setShininess(10.0);
+
+
         //texture
         this.tex = new CGFappearance(this);
         this.tex.setAmbient(0.1, 0.1, 0.1, 1);
@@ -163,9 +171,13 @@ class XMLscene extends CGFscene {
         for(var key in this.graph.animations) {
             this.graph.animations[key].update(this.deltaT);
         }
+
+        this.gameOrchestrator.update(this.deltaT);
+
+
         this.lastT = t;
 
-        this.gameOrchestrator.update(t);
+        
         //var shaderTime = t / 10000 % 100;
         //this.secCamera.update(shaderTime);
     }
@@ -205,7 +217,7 @@ class XMLscene extends CGFscene {
         // ---- BEGIN Background, camera and axis setup
         
         // this stops camera movement
-        this.interface.setActiveCamera(this.camera);
+        //this.interface.setActiveCamera(this.camera);
 
 
         // Clear image and depth buffer everytime we update the scene
@@ -242,6 +254,8 @@ class XMLscene extends CGFscene {
             // Displays the scene (MySceneGraph function).
             this.graph.displayScene();
         }
+
+        this.gameOrchestrator.display();
 
         this.popMatrix();
         // ---- END Background, camera and axis setup

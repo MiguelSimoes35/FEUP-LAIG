@@ -5,7 +5,7 @@
  */
 
 class MyKeyFrameAnimation extends MyAnimation {
-    constructor(scene, id) {
+    constructor(scene, id, x_final, y_final) {
         super(scene);
         this.id = id;
         this.keyFrames = [];
@@ -13,6 +13,9 @@ class MyKeyFrameAnimation extends MyAnimation {
         this.time = 0;
         this.ratio = 1;
         this.flag = true;
+
+        this.x_final = x_final;
+        this.y_final = y_final;
         
         this.aniMatrix = mat4.create();
     }
@@ -40,13 +43,17 @@ class MyKeyFrameAnimation extends MyAnimation {
         this.time += t;
     }
 
-    apply() {
+    apply(piece) {
         //create matrix to apply
-        if(this.flag && this.segment <= this.keyFrames.length - 1){
+        if(this.flag && this.segment <= this.keyFrames.length - 1 && this.ratio != 1){
+
+
             // vector translations
             var current_trans = [this.keyFrames[this.segment].translate[0] * this.ratio / 100, 
                                     this.keyFrames[this.segment].translate[1] * this.ratio / 100, 
                                     this.keyFrames[this.segment].translate[2] * this.ratio / 100];
+
+            
 
             // vector scaling
             var scaleX;
@@ -97,11 +104,19 @@ class MyKeyFrameAnimation extends MyAnimation {
             this.aniMatrix = mat4.scale(this.aniMatrix, this.aniMatrix, current_sca);
 
             this.scene.multMatrix(this.aniMatrix);
+            
         }
-
+        else if(this.flag == false){
+            piece.x = this.x_final;
+            piece.y = this.y_final;
+        }
         else{
             var current_sca = [1, 1, 1];
             this.scene.multMatrix(this.aniMatrix);
         }  
+        
+
+        
+        
     }
 }
