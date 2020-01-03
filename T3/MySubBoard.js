@@ -59,7 +59,16 @@ class MySubBoard extends CGFobject {
     }
 
     getTile(x, y) {
-        // TO DO
+        for(var i = 0; i < 4; i++) {
+            for(var j = 0; j < 4; j++) {
+                if(x == this.board[4*i + j].x) {
+                    if(y == this.board[4*i + j].y) {
+                        return this.board[4*i + j];
+                    }
+                }
+            }
+        }
+        return null;
     }
 
     movePiece(piece, tile, time) {
@@ -73,7 +82,7 @@ class MySubBoard extends CGFobject {
 
         for(var i = 0; i < this.board.length; i++) {
             //Id for pickable objects must be >= 1
-			this.scene.registerForPick(i + 1, this.board[i]);
+            this.scene.registerForPick(i + 1, this.board[i]);
             this.board[i].display();
         }
         

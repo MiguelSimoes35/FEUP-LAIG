@@ -16,7 +16,6 @@ class MyTile extends CGFobject {
 
         this.gameboard;
         this.piece;
-
         this.valid = false;
     }
 

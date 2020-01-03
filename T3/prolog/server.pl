@@ -102,11 +102,17 @@ print_header_line(_).
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % Require your Prolog Files here
+:- include('board.pl').
+:- include('menu.pl').
+:- include('piece.pl').
+:- include('game.pl').
 
 parse_input(handshake, handshake).
-parse_input(laig, work).
 parse_input(test(C,N), Res) :- test(C,Res,N).
 parse_input(quit, goodbye).
+parse_input(pvp, here):- initialMenu.
+parse_input(board, Board):- start(Board,1).
+parse_input(moves(R,C), Moves):- setof(Move, calculando(R, C, Move), Moves).
 
 test(_,[],N) :- N =< 0.
 test(A,[A|Bs],N) :- N1 is N-1, test(A,Bs,N1).

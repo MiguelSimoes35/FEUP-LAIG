@@ -59,6 +59,16 @@ calculateDeltas(OLine, OColumn, DLine, DColumn, DeltaLine, DeltaColumn):-
     DeltaColumn is DColumn-OColumn, nl,
     possibleDelta(DeltaLine, DeltaColumn).
 
+calculando(OLine, OColumn, Move):-
+    possibleDelta(A, B),
+    DLine is OLine + A,
+    DColumn is OColumn + B,
+    DLine > 0,
+    DColumn > 0,
+    DLine < 5,
+    DColumn < 5,
+    Move = [DLine, DColumn].
+
 possibleDelta(0, 1).
 possibleDelta(0, 2).
 possibleDelta(0, -1).

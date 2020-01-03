@@ -52,7 +52,14 @@ class XMLscene extends CGFscene {
         this.default.setSpecular(0.1, 0.1, 0.1, 1);
         this.default.setShininess(10.0);
 
+        // green material
+        this.green = new CGFappearance(this);
+        this.green.setAmbient(0.0, 0.7, 0.0, 1);
+        this.green.setDiffuse(0.0, 0.7, 0.0, 1);
+        this.green.setSpecular(0.0, 0.7, 0.0, 1);
+        this.green.setShininess(10.0);
         // blue material
+        
         this.blue = new CGFappearance(this);
         this.blue.setAmbient(0.0, 0.0, 0.0, 1);
         this.blue.setDiffuse(0.0, 0.5, 1.0, 1);
@@ -90,8 +97,10 @@ class XMLscene extends CGFscene {
         this.setPickEnabled(true);
 
         this.start = false;
+        this.quit = false;
     
         this.gameOrchestrator = new MyGameOrchestrator(this);
+        this.tentativa = this.gameOrchestrator.possibleMoves(1,1);
     }
     
     /**
@@ -101,6 +110,7 @@ class XMLscene extends CGFscene {
         this.camera1 = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(50, 75, 50), vec3.fromValues(0, 0, 0));
         this.fixedcamera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(-45, 35, 0), vec3.fromValues(0, 0, 0));
     }
+
     /**
      * Initializes the scene lights with the values read from the XML file.
      */
@@ -198,36 +208,48 @@ class XMLscene extends CGFscene {
         //this.secCamera.update(shaderTime);
     }
 
-
     // picking here
     logPicking() {
 		if (this.pickMode == false) {
 			if (this.pickResults != null && this.pickResults.length > 0) {
 				for (var i = 0; i < this.pickResults.length; i++) {
-					var obj = this.pickResults[i][0];
+                    var obj = this.pickResults[i][0];
 					if (obj) {
 						var customId = this.pickResults[i][1];
                         console.log("Picked object: " + obj + ", with pick id " + customId);
-                        this.gameOrchestrator.managePick(obj, customId);						
+                        this.gameOrchestrator.managePick(obj, customId);
+                        /*if(customId == 17) {
+                            var moves = this.gameOrchestrator.possibleMoves(1, 1);
+                            console.log('Moves:');
+                            console.log(moves);
+                            /*if(moves[3] = [2, 2]) {
+                                var tile = this.gameOrchestrator.gameBoard.board3.getTile(-0.5,-0.5);
+                                tile.valid = true;
+                            }
+                        }		*/				
 					}
 				}
 				this.pickResults.splice(0, this.pickResults.length);
 			}
 		}
-	}
-
+    }
+    
+    closeServer() {
+        if (this.quit == true) {
+            this.gameOrchestrator.quit();
+        }
+    }
 
     /**
      * Displays the scene.
      */
     display() {
-
+        
         // picking example
         this.logPicking();
-        
         this.clearPickRegistration();
+        this.gameOrchestrator.display();
         // ---------------
-
 
         this.camera = this.fixedcamera;
         // ---- BEGIN Background, camera and axis setup
@@ -275,7 +297,6 @@ class XMLscene extends CGFscene {
 
         this.popMatrix();
         // ---- END Background, camera and axis setup
+        this.closeServer();
     }
-
-    
 }

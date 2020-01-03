@@ -7,7 +7,6 @@
 class MyGameboard extends CGFobject {
     constructor(scene) {
         super(scene);
-        this.scene = scene;
 
         this.board1 = [];
         this.board2 = [];

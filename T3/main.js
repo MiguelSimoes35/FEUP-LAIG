@@ -15,7 +15,7 @@ serialInclude(['../lib/CGF.js', 'XMLscene.js', 'MySceneGraph.js', 'MyInterface.j
 'primitives/MyTriangle.js', 'primitives/MyCylinder.js', 'primitives/MySphere.js', 'primitives/MyTorus.js', 'MyComponent.js', 
 'MyAnimation.js', 'MyKeyFrameAnimation.js', 'MyKeyFrame.js', 'primitives/MyPlane.js', 'primitives/MyPatch.js', 
 'primitives/MyCylinder2.js', 'MyTile.js', 'MyGameboard.js', 'MyPiece.js','MySubBoard.js', 'MyGameOrchestrator.js',
-'MyAnimator.js', 'CGFOBJModel.js', 'CGFResourceReader.js',
+'MyPrologInterface.js', 'MyAnimator.js', 'CGFOBJModel.js', 'CGFResourceReader.js',
 
 main=function() {
 	// Standard application, scene and interface setup
