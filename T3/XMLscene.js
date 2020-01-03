@@ -59,6 +59,14 @@ class XMLscene extends CGFscene {
         this.blue.setSpecular(0.0, 0.5, 1.0, 1);
         this.blue.setShininess(10.0);
 
+        // black material
+        this.black = new CGFappearance(this);
+        this.black.setAmbient(0.0, 0.0, 0.0, 1);
+        this.black.setDiffuse(0, 0, 0, 1);
+        this.black.setSpecular(0, 0, 0, 1);
+        this.black.setShininess(10.0);
+
+
 
         //texture
         this.tex = new CGFappearance(this);
@@ -68,6 +76,14 @@ class XMLscene extends CGFscene {
         this.tex.setShininess(10.0);
         this.tex.loadTexture('scenes/images/pixel-tile.png');
         this.tex.setTextureWrap('REPEAT', 'REPEAT');
+
+        this.sel_tex = new CGFappearance(this);
+        this.sel_tex.setAmbient(0.1, 0.1, 0.1, 1);
+        this.sel_tex.setDiffuse(0.9, 0.9, 0.9, 1);
+        this.sel_tex.setSpecular(0.1, 0.1, 0.1, 1);
+        this.sel_tex.setShininess(10.0);
+        this.sel_tex.loadTexture('scenes/images/tile-selected.png');
+        this.sel_tex.setTextureWrap('REPEAT', 'REPEAT');
 
 
         // picking 

@@ -5,11 +5,13 @@
  */
 
 class MySubBoard extends CGFobject {
-    constructor(scene, x, y) {
+    constructor(scene, x, y, index) {
         super(scene);
         this.scene = scene;
         this.x = x;
         this.y = y;
+
+        this.index = index;
 
         this.board = [];
         this.pieces1 = [];
@@ -29,8 +31,10 @@ class MySubBoard extends CGFobject {
 
         for(var i = 0; i < 4; i++) {
             this.piece1 = new MyPiece(this.scene, -1.5, -1.5 + i);
+            this.piece1.board = this.index;
             // falta adicionar apontador para a tile
             this.piece2 = new MyPiece(this.scene, 1.5, -1.5 + i);
+            this.piece2.board = this.index;
             // falta adicionar apontador para a tile
 
             this.pieces1.push(this.piece1);

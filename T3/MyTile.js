@@ -16,6 +16,8 @@ class MyTile extends CGFobject {
 
         this.gameboard;
         this.piece;
+
+        this.valid = false;
     }
 
     // class methods 
@@ -35,10 +37,19 @@ class MyTile extends CGFobject {
         return this.piece;
     }
 
+    clearValid(){
+        this.valid = false;
+    }
+
     // display
     display() {
         this.scene.pushMatrix();
-        this.scene.tex.apply();
+        if(this.valid){
+            this.scene.sel_tex.apply();
+        }
+        else{
+            this.scene.tex.apply();
+        }
         this.scene.translate(this.x, 0, this.y);
         this.plane.display();
         this.scene.popMatrix();

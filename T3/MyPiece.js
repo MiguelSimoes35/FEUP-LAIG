@@ -19,6 +19,7 @@ class MyPiece extends CGFobject {
         this.teste = new CGFOBJModel(this.scene, 'models/piece.obj');
 
         this.tile;
+        this.board;
 
         this.animation;
     }
