@@ -7,7 +7,6 @@
 class MyGameboard extends CGFobject {
     constructor(scene) {
         super(scene);
-        this.scene = scene;
 
         this.board1 = [];
         this.board2 = [];
@@ -47,7 +46,7 @@ class MyGameboard extends CGFobject {
         // TO DO
     }
 
-    movePiece(piece, tile){
+    movePiece(piece, tileOrigin, tileDestination){
         // TO DO
     }
     

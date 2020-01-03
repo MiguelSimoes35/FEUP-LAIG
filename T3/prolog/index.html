@@ -16,8 +16,7 @@
 		<div id="query_result"></div>
 		
 		<script>
-			function getPrologRequest(requestString, onSuccess, onError, port)
-			{
+			function getPrologRequest(requestString, onSuccess, onError, port) {
 				var requestPort = port || 8081
 				var request = new XMLHttpRequest();
 				request.open('GET', 'http://localhost:'+requestPort+'/'+requestString, true);
@@ -29,8 +28,7 @@
 				request.send();
 			}
 		
-			function makeRequest()
-			{
+			function makeRequest() {
 				// Get Parameter Values
 				var requestString = document.querySelector("#query_field").value;				
 				
@@ -39,10 +37,9 @@
 			}
 			
 			//Handle the Reply
-			function handleReply(data){
+			function handleReply(data) {
 				document.querySelector("#query_result").innerHTML=data.target.response;
 			}
-		
 		</script>
 	</body>
 </html>

@@ -1098,7 +1098,7 @@ class MySceneGraph {
                 var tile = new MyTile(this.scene, x, y);
                 this.primitives[primitiveId] = tile;
             }
-            //MyTile
+            //MyGameboard
             else if(primitiveType == 'gameboard'){
                 var gameboard = new MyGameboard(this.scene);
                 this.primitives[primitiveId] = gameboard;

@@ -43,6 +43,11 @@ class MyInterface extends CGFinterface {
             this.start = newValue;
         });
 
+        //quit button
+        this.gui.add(this.scene, 'quit').onChange(function(newValue) {
+            this.quit = newValue;
+        });
+
         // Adding each light's enabled property to the folder
         var i = 0
         for (var key in this.scene.lightIDs) {
