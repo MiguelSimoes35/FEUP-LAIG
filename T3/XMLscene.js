@@ -217,7 +217,7 @@ class XMLscene extends CGFscene {
         // ---- BEGIN Background, camera and axis setup
         
         // this stops camera movement
-        //this.interface.setActiveCamera(this.camera);
+        this.interface.setActiveCamera(this.camera);
 
 
         // Clear image and depth buffer everytime we update the scene
