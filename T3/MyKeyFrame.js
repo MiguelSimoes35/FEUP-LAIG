@@ -14,5 +14,7 @@ class MyKeyFrame extends CGFobject {
         this.translate = translate;
         this.rotate = rotate;
         this.scale = scale;
+
+        
     }
 }

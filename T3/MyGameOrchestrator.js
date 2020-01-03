@@ -7,14 +7,23 @@
 class MyGameOrchestrator extends CGFobject {
     constructor(scene) {
         super(scene);
+        this.scene = scene;
 
         this.time = 0;
 
-        this.prolog = new MyPrologInterface();
-        this.gameBoard = new MyGameboard(scene);
+        this.prolog;
+        this.gameboard;
+        this.animator;
+
+        this.pieceID;
+        this.tileID;
 
         this.pieceMoves = [];
 
+        this.counter;
+        this.timeCounter = 0;
+                
+        this.init();
         this.start();
         this.getInitialBoard();
     }
@@ -32,6 +41,14 @@ class MyGameOrchestrator extends CGFobject {
         }); //starting with pvp mode
     }
 
+    // class methods
+    init() {    
+        this.prolog = new MyPrologInterface();
+        this.gameboard = new MyGameboard(this.scene);
+        this.animator = new MyAnimator(this.scene, this.gameboard);
+        this.counter = 0;
+    }
+
     quit() {    //stop game and close prolog server
         this.prolog.request('quit', function(data) {
             if(data.target.response == "goodbye") {
@@ -42,10 +59,6 @@ class MyGameOrchestrator extends CGFobject {
                 console.log(data.target.response);
             }
         });
-    }
-
-    getGameBoard() {
-        return this.gameBoard;
     }
 
     getInitialBoard() {
@@ -93,27 +106,44 @@ class MyGameOrchestrator extends CGFobject {
 
     update(time) {
         this.time = time;
+        this.timeCounter += time;
+        this.animator.update(time);
     }
 
-    managePick(obj, customId, tentativa) {
+    managePick(obj, customId) {
         if(this.scene.start == true) {
-            if(customId > 16 && customId < 25) {
-                console.log("well done!");
-                var kf = new MyKeyFrame(this.scene, this.time + 3, [3, 0, 0], [0, 0, 0], [1, 1, 1]);
-                var anim = new MyKeyFrameAnimation(this.scene, "animation");
-                anim.keyFrames = kf;
-                if(customId == 17) {
-                    if(tentativa != []) {
-                        for (var i = 0; i < tentativa.length; i++) {
-                            this.gameBoard.board1.board[6].valid = true;
-                        }
-                    }
-                }
+            if(customId > 16 && customId < 25 && this.counter == 0) {
+                console.log("choose a tile!");
+                this.pieceID = customId;
+                this.counter++;
+            }
+            if(customId <= 16 && this.counter == 1){
+                this.tileID = customId;
+
+                var x = this.gameboard.board1.board[this.tileID - 1].x - this.gameboard.board1.pieces1[this.pieceID - 17].x;
+                var y = this.gameboard.board1.board[this.tileID - 1].y - this.gameboard.board1.pieces1[this.pieceID - 17].y;
+
+                var x_final = this.gameboard.board1.board[this.tileID - 1].x;
+                var y_final = this.gameboard.board1.board[this.tileID - 1].y;
+                
+                var trans = [x * 1.8 /*3.5*/, 0, y * 1.8 /*3.5*/];
+                var rot = [0, 0, 0];
+                var sca = [1, 1, 1];
+
+                var kf = new MyKeyFrame(this.scene, 1, trans, rot, sca);
+
+                var kfa = new MyKeyFrameAnimation(this.scene, "idk", x_final, y_final);
+                kfa.keyFrames.push(kf);
+
+                this.animator.addAnimation(kfa);
+                this.gameboard.board1.pieces1[this.pieceID - 17].animation = kfa;
+
+                this.counter--;
             }
         }        
     }
 
     display() {
-        this.gameBoard.display();
+        this.gameboard.display();
     }
 }

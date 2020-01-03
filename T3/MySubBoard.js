@@ -67,8 +67,8 @@ class MySubBoard extends CGFobject {
         return null;
     }
 
-    movePiece(piece, tile) {
-        // TO DO
+    movePiece(piece, tile, time) {
+
     }
     
     // display
@@ -83,14 +83,14 @@ class MySubBoard extends CGFobject {
         }
         
         for(var i = 0; i < this.pieces1.length; i++) {
-            this.scene.default.apply();
+            this.scene.blue.apply();
             //Id for pickable objects must be >= 1
             this.scene.registerForPick(i + 17, this.pieces1[i]);
             this.pieces1[i].display();
         }
 
         for(var i = 0; i < this.pieces2.length; i++) {
-            this.scene.default.apply();
+            this.scene.blue.apply();
             //Id for pickable objects must be >= 1
 			this.scene.registerForPick(i + 21, this.pieces2[i]);
             this.pieces2[i].display();
