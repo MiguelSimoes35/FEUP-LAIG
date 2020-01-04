@@ -14,6 +14,7 @@ class MyGameOrchestrator extends CGFobject {
         this.prolog;
         this.gameboard;
         this.animator;
+        this.skybox;
 
         this.pieceID;
         this.tileID;
@@ -47,6 +48,7 @@ class MyGameOrchestrator extends CGFobject {
         this.prolog = new MyPrologInterface();
         this.gameboard = new MyGameboard(this.scene);
         this.animator = new MyAnimator(this.scene, this.gameboard);
+        this.skybox = new MySkybox(this.scene);
         this.counter = 0;
     }
 
@@ -188,7 +190,7 @@ class MyGameOrchestrator extends CGFobject {
                         var x_final = this.gameboard.board1.board[this.tileID - 1].x;
                         var y_final = this.gameboard.board1.board[this.tileID - 1].y;
                     
-                        var trans = [x * 3.5, 0, y * 3.5];
+                        var trans = [x * 1.8, 0, y * 1.8];
                         var rot = [0, 0, 0];
                         var sca = [1, 1, 1];
 
@@ -211,7 +213,7 @@ class MyGameOrchestrator extends CGFobject {
                         var x_final = this.gameboard.board2.board[this.tileID - 1].x;
                         var y_final = this.gameboard.board2.board[this.tileID - 1].y;
                     
-                        var trans = [x * 3.5, 0, y * 3.5];
+                        var trans = [x * 1.8, 0, y * 1.8];
                         var rot = [0, 0, 0];
                         var sca = [1, 1, 1];
 
@@ -234,7 +236,7 @@ class MyGameOrchestrator extends CGFobject {
                         var x_final = this.gameboard.board3.board[this.tileID - 1].x;
                         var y_final = this.gameboard.board3.board[this.tileID - 1].y;
                     
-                        var trans = [x * 3.5, 0, y * 3.5];
+                        var trans = [x * 1.8, 0, y * 1.8];
                         var rot = [0, 0, 0];
                         var sca = [1, 1, 1];
 
@@ -257,7 +259,7 @@ class MyGameOrchestrator extends CGFobject {
                         var x_final = this.gameboard.board4.board[this.tileID - 1].x;
                         var y_final = this.gameboard.board4.board[this.tileID - 1].y;
                     
-                        var trans = [x * 3.5, 0, y * 3.5];
+                        var trans = [x * 1.8, 0, y * 1.8];
                         var rot = [0, 0, 0];
                         var sca = [1, 1, 1];
 
@@ -287,5 +289,6 @@ class MyGameOrchestrator extends CGFobject {
 
     display() {
         this.gameboard.display();
+        this.skybox.display();
     }
 }

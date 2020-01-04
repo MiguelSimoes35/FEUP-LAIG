@@ -51,8 +51,8 @@
     <textures>
         <texture id="wood" file="scenes/images/wood.jpg" />
         <texture id="felt-mate" file="scenes/images/felt-mate.jpg" />
-        <texture id="beach-lateral" file="scenes/images/beach-lateral.png" />
-        <texture id="beach-floor" file="scenes/images/beach-floor.png" />
+        <texture id="beach-lateral" file="scenes/images/woods-lateral.png" />
+        <texture id="beach-floor" file="scenes/images/woods-floor.png" />
     </textures>
 
     <materials>
@@ -135,23 +135,9 @@
             <children>
                 <componentref id="support"/> 
                 <componentref id="table"/>
-                <!--<componentref id="board"/> -->
-                <componentref id="skybox"/>
+                <!-- <componentref id="skybox"/> -->
             </children>
         </component>
-        <!--
-        <component id = "board">
-            <transformation>
-            </transformation>
-            <materials>
-                <material id="demoMaterial" />
-            </materials>
-            <texture id="none" />
-            <children>
-                <primitiveref id="gameboard"/>
-            </children>
-        </component>
-        -->
 
         <component id = "support">
             <transformation>

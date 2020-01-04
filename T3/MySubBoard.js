@@ -94,7 +94,7 @@ class MySubBoard extends CGFobject {
         }
 
         for(var i = 0; i < this.pieces2.length; i++) {
-            this.scene.blue.apply();
+            this.scene.purple.apply();
             //Id for pickable objects must be >= 1
 			this.scene.registerForPick(i + 21, this.pieces2[i]);
             this.pieces2[i].display();

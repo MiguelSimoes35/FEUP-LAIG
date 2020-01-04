@@ -32,8 +32,11 @@ class MyInterface extends CGFinterface {
         // Scale Factor
         this.gui.add(this.scene, 'scaleFactor', 0.1, 5).name('Scale Factor');
         
-        // Folder holding cameras
+        // Folder holding 
         //this.gui.add(this.scene, 'selectedView', this.scene.cameraIDs).name('Selected Camera').onChange(this.scene.changeCamera.bind(this.scene));
+
+        // Folder holding Environments
+        this.gui.add(this.scene, 'selectedEnvironment', this.scene.environments).name('Environment').onChange(this.scene.changeEnvironment.bind(this.scene));
 
         // Folder holding lights
         this.lightsFolder = this.gui.addFolder('Lights');

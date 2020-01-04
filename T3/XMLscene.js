@@ -39,6 +39,9 @@ class XMLscene extends CGFscene {
 
         this.selectedView = null;
         this.cameraIDs = [];
+
+        this.environments = ["Beach", "Woods", "Space"];
+        this.selectedEnvironment = "Beach";
         
         this.lightIDs = new Object();
 
@@ -51,20 +54,27 @@ class XMLscene extends CGFscene {
         this.default.setDiffuse(0.9, 0.9, 0.9, 1);
         this.default.setSpecular(0.1, 0.1, 0.1, 1);
         this.default.setShininess(10.0);
-
+        
         // green material
         this.green = new CGFappearance(this);
         this.green.setAmbient(0.0, 0.7, 0.0, 1);
         this.green.setDiffuse(0.0, 0.7, 0.0, 1);
         this.green.setSpecular(0.0, 0.7, 0.0, 1);
         this.green.setShininess(10.0);
-        // blue material
         
+        // blue material
         this.blue = new CGFappearance(this);
         this.blue.setAmbient(0.0, 0.0, 0.0, 1);
         this.blue.setDiffuse(0.0, 0.5, 1.0, 1);
         this.blue.setSpecular(0.0, 0.5, 1.0, 1);
         this.blue.setShininess(10.0);
+
+        // purple material
+        this.purple = new CGFappearance(this);
+        this.purple.setAmbient(0.0, 0.0, 0.0, 1);
+        this.purple.setDiffuse(1.0, 0.0, 1.0, 1);
+        this.purple.setSpecular(1.0, 0.0, 1.0, 1);
+        this.purple.setShininess(10.0);
 
         // black material
         this.black = new CGFappearance(this);
@@ -75,7 +85,7 @@ class XMLscene extends CGFscene {
 
 
 
-        //texture
+        //textures
         this.tex = new CGFappearance(this);
         this.tex.setAmbient(0.1, 0.1, 0.1, 1);
         this.tex.setDiffuse(0.9, 0.9, 0.9, 1);
@@ -91,6 +101,55 @@ class XMLscene extends CGFscene {
         this.sel_tex.setShininess(10.0);
         this.sel_tex.loadTexture('scenes/images/tile-selected.png');
         this.sel_tex.setTextureWrap('REPEAT', 'REPEAT');
+
+        //skybox
+
+        // beach
+        this.beach_lateral = new CGFappearance(this);
+        this.beach_lateral.setAmbient(0.1, 0.1, 0.1, 1);
+        this.beach_lateral.setDiffuse(0.9, 0.9, 0.9, 1);
+        this.beach_lateral.setSpecular(0.1, 0.1, 0.1, 1);
+        this.beach_lateral.setShininess(10.0);
+        this.beach_lateral.loadTexture('scenes/images/beach-lateral.png');
+        this.beach_lateral.setTextureWrap('REPEAT', 'REPEAT');
+
+        this.beach_floor = new CGFappearance(this);
+        this.beach_floor.setAmbient(0.1, 0.1, 0.1, 1);
+        this.beach_floor.setDiffuse(0.9, 0.9, 0.9, 1);
+        this.beach_floor.setSpecular(0.1, 0.1, 0.1, 1);
+        this.beach_floor.setShininess(10.0);
+        this.beach_floor.loadTexture('scenes/images/beach-floor.png');
+        this.beach_floor.setTextureWrap('REPEAT', 'REPEAT');
+
+        // woods
+        this.woods_lateral = new CGFappearance(this);
+        this.woods_lateral.setAmbient(0.1, 0.1, 0.1, 1);
+        this.woods_lateral.setDiffuse(0.9, 0.9, 0.9, 1);
+        this.woods_lateral.setSpecular(0.1, 0.1, 0.1, 1);
+        this.woods_lateral.setShininess(10.0);
+        this.woods_lateral.loadTexture('scenes/images/woods-lateral.png');
+        this.woods_lateral.setTextureWrap('REPEAT', 'REPEAT');
+
+        this.woods_floor = new CGFappearance(this);
+        this.woods_floor.setAmbient(0.1, 0.1, 0.1, 1);
+        this.woods_floor.setDiffuse(0.9, 0.9, 0.9, 1);
+        this.woods_floor.setSpecular(0.1, 0.1, 0.1, 1);
+        this.woods_floor.setShininess(10.0);
+        this.woods_floor.loadTexture('scenes/images/woods-floor.png');
+        this.woods_floor.setTextureWrap('REPEAT', 'REPEAT');
+
+        //space
+        this.space = new CGFappearance(this);
+        this.space.setAmbient(0.1, 0.1, 0.1, 1);
+        this.space.setDiffuse(0.9, 0.9, 0.9, 1);
+        this.space.setSpecular(0.1, 0.1, 0.1, 1);
+        this.space.setShininess(10.0);
+        this.space.loadTexture('scenes/images/space.jpg');
+        this.space.setTextureWrap('REPEAT', 'REPEAT');
+
+
+
+
 
 
         // picking 
@@ -108,7 +167,8 @@ class XMLscene extends CGFscene {
      */
     initCameras() {
         this.camera1 = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(50, 75, 50), vec3.fromValues(0, 0, 0));
-        this.fixedcamera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(-45, 35, 0), vec3.fromValues(0, 0, 0));
+        this.player1Camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(-60, 25, 0), vec3.fromValues(0, 0, 0));
+        this.player2Camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(60, 25, 0), vec3.fromValues(0, 0, 0));
     }
 
     /**
@@ -168,6 +228,10 @@ class XMLscene extends CGFscene {
         //this.camera1 = this.graph.views[this.selectedView];
         // this enables the camera movement
         //this.interface.setActiveCamera(this.camera);
+    }
+
+    changeEnvironment(){
+        this.selected_environment = this.selectedEnvironment;
     }
 
     setDefaultAppearance() {
@@ -250,8 +314,8 @@ class XMLscene extends CGFscene {
         this.clearPickRegistration();
         this.gameOrchestrator.display();
         // ---------------
-
-        this.camera = this.fixedcamera;
+        
+        this.camera = this.player1Camera;
         // ---- BEGIN Background, camera and axis setup
         
         // this stops camera movement
